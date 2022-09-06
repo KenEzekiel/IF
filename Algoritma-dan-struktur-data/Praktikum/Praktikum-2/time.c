@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "time.h"
 #include "boolean.h"
+#define mod(x, k) (((x % k) + k) % k)
 
 /* ***************************************************************** */
 /* DEFINISI PRIMITIF                                                 */
@@ -113,23 +114,7 @@ TIME DetikToTIME(long N)
     TIME T;
     boolean loop;
 
-    if (N < 0)
-    {
-        N1 = (-1) * N;
-    }
-    else
-    {
-        N1 = N;
-    }
-
-    while (loop == true)
-    {
-        N1 = N1 % 86400;
-        if (N1 < 86400)
-        {
-            loop = false;
-        }
-    }
+    N1 = mod(N, 86400);
 
     HH = N1 / 3600;
     sisa = N1 % 3600;
@@ -261,7 +246,7 @@ long Durasi(TIME TAw, TIME TAkh)
 
     if (detik1 > detik2)
     {
-        durasi = detik1 - detik2 + 86400;
+        durasi = 86400 - (detik1 - detik2);
     }
     else
     {
