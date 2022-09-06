@@ -54,8 +54,8 @@ int main()
     printf("\nLalu di mirror terhadap sumbu y:\n ");
     Mirror(&p3, false);
     TulisPOINT(p3);
-    printf("\nLalu diputar 45.5 derajat:\n ");
-    Putar(&p3, 45.5);
+    printf("\nLalu diputar 90 derajat:\n ");
+    Putar(&p3, 90);
     TulisPOINT(p3);
 
     return 0;

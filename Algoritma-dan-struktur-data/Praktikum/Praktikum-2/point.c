@@ -1,7 +1,12 @@
+/*
+Kenneth Ezekiel Suprantoni
+13521089
+Implementasi point.h
+*/
+
 #include <stdio.h>
 #include "point.h"
 #include <math.h>
-#define PI 3.142857
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk POINT *** */
@@ -287,7 +292,7 @@ void Putar(POINT *P, float Sudut)
     /*KAMUS LOKAL*/
     float sudutDalamRadian, xAksen, yAksen;
 
-    sudutDalamRadian = Sudut * (PI / 180);
+    sudutDalamRadian = (-1) * Sudut * (M_PI / 180);
     xAksen = (Absis(*P) * cos(sudutDalamRadian)) - (Ordinat(*P) * sin(sudutDalamRadian));
     yAksen = (Absis(*P) * sin(sudutDalamRadian)) + (Ordinat(*P) * cos(sudutDalamRadian));
     Absis(*P) = xAksen;
