@@ -61,6 +61,7 @@ void BacaTIME(TIME *T)
         if (IsTIMEValid(HH, MM, SS) == true)
         {
             CreateTime(T, HH, MM, SS);
+            valid = true;
         }
         else
             printf("Jam tidak valid");
@@ -75,14 +76,15 @@ void TulisTIME(TIME T)
        tanpa karakter apa pun di depan atau belakangnya, termasuk spasi, enter, dll.*/
     int HH, MM, SS;
 
-    scanf("&d:%d:&d", &HH, &MM, &SS);
+    HH = Hour(T);
+    MM = Minute(T);
+    SS = Second(T);
 
-    if (IsTIMEValid(HH, MM, SS) == true)
-    {
-        Hour(T) = HH;
-        Minute(T) = MM;
-        Second(T) = SS;
-    }
+    printf("%02d", HH);
+    printf(":");
+    printf("%02d", MM);
+    printf(":");
+    printf("%02d", SS);
 }
 
 /* ***************************************************************** */
