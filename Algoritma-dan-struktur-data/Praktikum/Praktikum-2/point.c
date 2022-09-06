@@ -292,7 +292,7 @@ void Putar(POINT *P, float Sudut)
     /*KAMUS LOKAL*/
     float sudutDalamRadian, xAksen, yAksen;
 
-    sudutDalamRadian = (-1) * Sudut * (M_PI / 180);
+    sudutDalamRadian = (-1) * Sudut * (acos(-1) / 180);
     xAksen = (Absis(*P) * cos(sudutDalamRadian)) - (Ordinat(*P) * sin(sudutDalamRadian));
     yAksen = (Absis(*P) * sin(sudutDalamRadian)) + (Ordinat(*P) * cos(sudutDalamRadian));
     Absis(*P) = xAksen;

@@ -64,7 +64,7 @@ void BacaTIME(TIME *T)
             valid = true;
         }
         else
-            printf("Jam tidak valid");
+            printf("Jam tidak valid\n");
     }
 }
 
@@ -96,6 +96,7 @@ long TIMEToDetik(TIME T)
     /* Rumus : detik = 3600*HH + 60*MM + SS */
     /* Nilai maksimum = 3600*23+59*60+59 */
     /*KAMUS LOKAL*/
+
     long jumlah = Hour(T) * 3600 + Minute(T) * 60 + Second(T);
 
     return jumlah;
@@ -107,10 +108,28 @@ TIME DetikToTIME(long N)
     /* Catatan: Jika N >= 86400, maka harus dikonversi dulu menjadi jumlah detik yang
        mewakili jumlah detik yang mungkin dalam 1 hari, yaitu dengan rumus:
        N1 = N mod 86400, baru N1 dikonversi menjadi TIME */
-
-    long N1 = N % 86400;
-    int HH, MM, SS, sisa;
+    long N1;
+    long HH, MM, SS, sisa;
     TIME T;
+    boolean loop;
+
+    if (N < 0)
+    {
+        N1 = (-1) * N;
+    }
+    else
+    {
+        N1 = N;
+    }
+
+    while (loop == true)
+    {
+        N1 = N1 % 86400;
+        if (N1 < 86400)
+        {
+            loop = false;
+        }
+    }
 
     HH = N1 / 3600;
     sisa = N1 % 3600;
@@ -128,7 +147,7 @@ TIME DetikToTIME(long N)
 boolean TEQ(TIME T1, TIME T2)
 {
     /* Mengirimkan true jika T1=T2, false jika tidak */
-    if ((Hour(T1) == Hour(T2)) && (Minute(T1) == Minute(T2)) && (Second(T1) == Second(T1)))
+    if ((Hour(T1) == Hour(T2)) && (Minute(T1) == Minute(T2)) && (Second(T1) == Second(T2)))
     {
         return true;
     }
@@ -138,7 +157,7 @@ boolean TEQ(TIME T1, TIME T2)
 boolean TNEQ(TIME T1, TIME T2)
 {
     /* Mengirimkan true jika T1 tidak sama dengan T2 */
-    if ((Hour(T1) != Hour(T2)) || (Minute(T1) != Minute(T2)) || (Second(T1) != Second(T1)))
+    if ((Hour(T1) != Hour(T2)) || (Minute(T1) != Minute(T2)) || (Second(T1) != Second(T2)))
     {
         return true;
     }
@@ -149,7 +168,7 @@ boolean TLT(TIME T1, TIME T2)
 {
     /* Mengirimkan true jika T1<T2, false jika tidak */
     /*KAMUS LOKAL*/
-    int detik1, detik2;
+    long detik1, detik2;
 
     /*ALGORITMA*/
     detik1 = TIMEToDetik(T1);
@@ -166,7 +185,7 @@ boolean TGT(TIME T1, TIME T2)
 {
     /* Mengirimkan true jika T1>T2, false jika tidak */
     /*KAMUS LOKAL*/
-    int detik1, detik2;
+    long detik1, detik2;
 
     /*ALGORITMA*/
     detik1 = TIMEToDetik(T1);
@@ -184,7 +203,7 @@ TIME NextDetik(TIME T)
 {
     /* Mengirim 1 detik setelah T dalam bentuk TIME */
     /*KAMUS LOKAL*/
-    int detik;
+    long detik;
 
     /*ALGORITMA*/
     detik = TIMEToDetik(T);
@@ -196,7 +215,7 @@ TIME NextNDetik(TIME T, int N)
 {
     /* Mengirim N detik setelah T dalam bentuk TIME */
     /*KAMUS LOKAL*/
-    int detik;
+    long detik;
 
     /*ALGORITMA*/
     detik = TIMEToDetik(T);
@@ -208,7 +227,7 @@ TIME PrevDetik(TIME T)
 {
     /* Mengirim 1 detik sebelum T dalam bentuk TIME */
     /*KAMUS LOKAL*/
-    int detik;
+    long detik;
 
     /*ALGORITMA*/
     detik = TIMEToDetik(T);
@@ -220,7 +239,7 @@ TIME PrevNDetik(TIME T, int N)
 {
     /* Mengirim N detik sebelum T dalam bentuk TIME */
     /*KAMUS LOKAL*/
-    int detik;
+    long detik;
 
     /*ALGORITMA*/
     detik = TIMEToDetik(T);
@@ -234,7 +253,7 @@ long Durasi(TIME TAw, TIME TAkh)
     /* Mengirim TAkh-TAw dlm Detik, dengan kalkulasi */
     /* Jika TAw > TAkh, maka TAkh adalah 1 hari setelah TAw */
     /*KAMUS LOKAL*/
-    int detik1, detik2, durasi;
+    long detik1, detik2, durasi;
 
     /*ALGORITMA*/
     detik1 = TIMEToDetik(TAw);
