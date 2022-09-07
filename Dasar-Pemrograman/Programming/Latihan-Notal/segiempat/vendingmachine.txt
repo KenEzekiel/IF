@@ -1,0 +1,70 @@
+{KAMUS}
+type Baki :
+    < nomor : integer;
+      harga : integer;
+      jumlah : integer >
+array_of_baki : array [1..N] of Baki
+      
+{DEFINISI DAN PROSEDUR}
+
+procedure Loading
+    {I.S. Banyak baki, dan baki sudah didefinisikan, dan array_of_baki sudah didefinisikan sebagai array [1..N] of Baki}
+    {F.S. mesin sudah ter-set-up, yang artinya sudah tervalidasi untuk setiap data baki}
+
+    KAMUS LOKAL
+    N, i : integer
+    cekinput, cekinput_harga, cekinput_jumlah : boolean
+
+    ALGORITMA
+
+    input(N) {Banyak baki yang dipakai}
+
+    i traversal [1..N]
+        array_of_baki.nomor <- i
+        input(array_of_baki[i].harga)
+        input(array_of_baki[i].jumlah)
+    
+    i <- 0
+    while not cekinput do
+        cekinput_harga <- False
+        cekinput_jumlah <- False
+        if not ((array_of_baki[i].harga >= 5000 and array_of_baki[i].harga <= 20000) and (array_of_baki[i].harga % 5000) = 0) then
+            output("Masukan harga salah")
+            input(array_of_baki[i].harga) 
+        else
+            cekinput_harga <- True   
+        if not (array_of_baki[i].jumlah >= 0 and array_of_baki[i].jumlah <= 40) then
+            output("Masukan jumlah salah")
+            input(array_of_baki[i].jumlah)
+        else 
+            cekinput_jumlah <- True
+        i <- i + 1
+        cekinput <- cekinput_harga and cekinput_jumlah
+    
+procedure Operation
+    (input integer i)
+    {I.S. vending machine telah ter-set-up dengan prosedur Loading, dengan nomor baki dalam array_of_baki sudah terdefinisi}
+    {F.S. jumlah barang di dalam baki yang ada di dalam array_of_baki berkurang sebanyak satu di indeks baki tertentu}
+
+    KAMUS LOKAL
+    i : integer
+
+    ALGORITMA
+    {input(i)} {Nomor baki yang akan dibeli (akan diterima masukan dari luar prosedur)}
+
+    if array_of_baki[i].jumlah > 0 then
+        array_of_baki[i].jumlah <- array_of_baki[i].jumlah - 1
+    else
+        array_of_baki[i].jumlah <- array_of_baki[i].jumlah
+    
+{ALGORITMA}
+
+Loading
+
+input(N) {Nomor baki yang akan dibeli}
+
+while array_of_baki[N].jumlah > 0 do
+    Operation(N)
+
+
+

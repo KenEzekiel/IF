@@ -1,0 +1,36 @@
+{PROGRAM rekamanMHS}
+
+{KAMUS}
+{
+type rekamanMHS : < NIM : string,
+                    nilai : integer>
+
+mark : rekamanMHS
+
+rekaman : SEQFILE of
+        (*) rekMHS : rekamanMHS
+        (1) <“99999999”, 99>
+
+rekaman_baru : SEQFILE of
+            (*) rekMHS : rekamanMHS
+            (1) <“99999999”, 99>
+}
+
+{ALGORITMA}
+    assign (rekaman, "rekaman.dat")
+    assign (rekaman_baru, "rekaman1.dat")
+    open (rekaman, rekMHS)
+    if (rekMHS.NIM = "99999999”) and (rekMHS.nilai = 99) then
+        output("Arsip kosong")
+    else
+        while (rekMHS.NIM != "99999999”) and (rekMHS.nilai != 99) do
+            if rekMHS.nilai >= 80 then
+                write (rekaman_baru, rekMHS)
+            else
+                do nothing
+            read (rekaman, rekMHS)
+        mark.NIM <- "99999999”
+        mark.nilai <- 99
+        write(rekaman_baru, mark)
+    close (rekaman)
+    close (rekaman_baru)

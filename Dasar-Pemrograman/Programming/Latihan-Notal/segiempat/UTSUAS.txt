@@ -1,0 +1,32 @@
+Program UTSUAS
+{Menerima masukan nilai UTS dan mengembalikan rata-ratanya
+Masukan akan terus diminta sampai ada nilai UTS yang tidak masuk kedalam range}
+
+KAMUS
+    uts, uas, i : integer {0..100}
+    rata : float
+    masukan: boolean
+
+ALGORITMA
+
+masukan <- True
+cek_uas <- False
+i <- 0
+
+while masukan do
+    input(uts)
+    if 0 <= uts <= 100 then
+        while not cek_uas do
+        input(uas)
+        if 0 <= uas <= 100 then
+            cek_uas <- True
+            rata = 0.4*uts + 0.6*uas
+            i <- i + 1
+            output(f"Nilai akhir pelajaran {i} = {rata}")
+        else
+            output("Ulangi input nilai (0..100)!")
+    else
+        masukan <- False
+
+if i = 0 then
+    output("Data kosong, tidak ada nilai rata-rata !")

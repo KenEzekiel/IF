@@ -1,0 +1,36 @@
+KAMUS 
+constant NMax : integer = 100 
+
+type TabInt : < Tab : array [1..NMax] of integer; 
+                Neff : integer { indeks efektif tabel yang  
+                                 terdefinisi, 0 ≤ N ≤ NMax } > 
+
+procedure InputTerurut (input/output T : TabInt;  
+                        input X : integer)
+    {I.S. T terdefinisi dan terurut membesar
+    F.S. T terisi secara terurut walaupun X yang dimasukkan acak}
+    {KAMUS LOKAL}
+    {NewT : array of integer
+    i, j : integer}
+    {ALGORITMA}
+    NewT = array [1..T.Neff+1] of integer
+    if (T.Neff > 1) then
+        {Looping sebanyak elemen efektif dari T}
+        i traversal [0..T.Neff]
+            {Jika X lebih besar dari nilai elemen pada indeks tersebut,
+            masukan nilai elemen dari array awal ke 
+            array baru pada indeks tersebut}
+            if X > T.Tab[i] then
+                NewT[i] <- T.Tab[i]
+            {Jika X lebih kecil atau sama dengan nilai elemen pada indeks tersebut,
+            masukan X ke array baru pada indeks tersebut}
+            else
+                NewT[i] <- X
+                {Karena X hanya 1, maka sisa dari array lama dimasukkan ke
+                array baru pada indeks setelah indeks dimasukkannya nilai X}
+                j traversal [i..T.Neff]
+                    NewT[j+1] <- T.Tab[i]
+                {Selesaikan loop karena nilai X sudah berhasil dimasukkan}
+                break
+        {Ganti T.Tab dengan NewT}
+        T.Tab <- NewT

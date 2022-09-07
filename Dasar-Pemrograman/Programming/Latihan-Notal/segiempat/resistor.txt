@@ -1,0 +1,36 @@
+Program Resistor
+{Menghitung nilai ekuivalen dari resistor berdasarkan pilihan koneksi
+dan nilai resistor itu sendiri}
+
+KAMUS
+    R1, R2, R3, eq : integer
+    pilihan : integer {1,2}
+    masukan_nilai, masukan_pilihan : boolean
+
+ALGORITMA
+
+masukan_nilai <- False
+masukan_pilihan <- False
+
+while not masukan_nilai do
+    input(R1)
+    input(R2)
+    input(R3)
+    if R1 >= 0 and R2 >= 0 and R3 >= 0 then
+        masukan_nilai <- True
+    else
+        output("Nilai Resistor tidak valid") 
+
+while not masukan_pilihan do
+    input(pilihan)
+    if pilihan = 1 or pilihan = 2 then
+        masukan_pilihan <- True
+    else
+        output("Pilihan tidak valid")
+    
+if pilihan = 1 then
+    eq = R1 + R2 + R3
+else
+    eq = (R1 * R2 * R3) / (R2*R3 + R1*R3 + R2*R3)
+
+output(eq)

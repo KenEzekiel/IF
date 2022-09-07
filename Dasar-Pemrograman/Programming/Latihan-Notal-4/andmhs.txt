@@ -1,0 +1,42 @@
+{PROGRAM mergingrekmhs}
+
+{KAMUS}
+{
+type rekamanMHS : < NIM : string,
+                    nilai : integer>
+
+mark : rekamanMHS
+
+rekaman1 : SEQFILE of
+        (*) rekMHS1 : rekamanMHS
+        (1) <“99999999”, 99>
+
+rekaman2 : SEQFILE of
+            (*) rekMHS2 : rekamanMHS
+            (1) <“99999999”, 99>
+
+rekaman_output : SEQFILE of
+                (*) rekMHSO : rekamanMHS
+                (1) <“99999999”, 99>
+}
+
+{ALGORITMA}
+assign (rekaman1, "rekaman1.dat")
+assign (rekaman2, "rekaman2.dat")
+assign (rekaman_output, "rekmhs.dat")
+
+open (rekaman1, rekMHS1)
+open (rekaman2, rekMHS2)
+rewrite (rekaman_output)
+
+while (rekMHS1.NIM != 99999999) and (rekMHS2.NIM != 99999999) do
+    if (rekMHS1.NIM <= rekMHS2.NIM) then
+        write(rekaman_output, rekMHS1)
+        read(rekaman1, rekMHS1)
+    else
+        write(rekaman_output, rekMHS2)
+        read(rekaman2, rekMHS2)
+
+close (rekaman1)
+close (rekaman2)
+close (rekaman_output)

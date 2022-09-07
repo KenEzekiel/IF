@@ -1,0 +1,30 @@
+{PROGRAM nilai}
+
+{KAMUS}
+{
+type rekamanMHS : < NIM : string,
+                    nilai : integer>
+
+rekaman : SEQFILE of
+        (*) rekMHS : rekamanMHS
+        (1) <“99999999”, 99>
+
+rekaman_nilai : SEQFILE of
+            (*) nilai : integer
+            (1) 999
+}
+
+{ALGORITMA}
+assign (rekaman, "rekaman.dat")
+assign (rekaman_nilai, "nilai.dat")
+
+open (rekaman, rekMHS)
+rewrite (rekaman_nilai, nilai)
+
+while (rekMHS.NIM != “99999999”) and (rekMHS.nilai != 99) do
+    write (rekaman_nilai, rekMHS.nilai)
+    read (rekaman, rekMHS)
+write (rekaman_nilai, 999)
+
+close (rekaman)
+close (rekaman_nilai)

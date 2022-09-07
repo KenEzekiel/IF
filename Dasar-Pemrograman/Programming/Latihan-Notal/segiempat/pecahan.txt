@@ -1,0 +1,33 @@
+{KAMUS}
+type pecahan : <pembilang : integer;
+                penyebut : integer > 0>
+
+Program MenghitungPecahan
+{Menerima nilai pecahan P1 dan P2 dan membandingkannya lalu 
+menghitung selisihnya dalam tipe pecahan}
+
+KAMUS
+    P1, P2. PAkhir : pecahan
+    P1lebihbesar : boolean
+
+ALGORITMA
+
+input(P1.pembilang)
+input(P1.penyebut)
+input(P2.pembilang)
+input(P2.penyebut)
+
+if P1.penyebut <= 0 or P2.penyebut <= 0 then
+    output("Masukan tidak valid")
+else
+    if (P1.pembilang/P1.penyebut) >= (P2.pembilang/P2.penyebut) then
+        P1lebihbesar <- True
+    else 
+        P1lebihbesar <- False
+
+if P1lebihbesar then
+    PAkhir <- (P1.pembilang*P2.penyebut - P2.pembilang*P1.penyebut)/(P1.penyebut*P2.penyebut)
+else 
+    PAkhir <- (P2.pembilang*P1.penyebut - P1.pembilang*P2.penyebut)/(P1.penyebut*P2.penyebut)
+
+output(PAkhir)

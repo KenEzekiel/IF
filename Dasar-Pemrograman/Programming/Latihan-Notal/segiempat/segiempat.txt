@@ -1,0 +1,51 @@
+{KAMUS}
+type Titik :
+    < x : integer {absis}
+      y : integer {ordinat}>
+
+type SegiEmpat :
+    < TAwal : Titik
+      TAkhir : Titik>
+
+{DEFINISI DAN PROSEDUR}
+Program BandingSegiEmpat
+{Membandingkan dua buah persegi atau persegi panjang
+dan mengembalikan hasil perbandingan dalam string}
+
+KAMUS  
+    S1, S2 : SegiEmpat
+    luasS1, luasS2 : integer
+
+ALGORITMA
+
+input(S1)
+input(S2)
+
+luasS1 <- (S1.TAkhir.x - S1.TAwal.x) * (S1.TAkhir.y - S1.TAwal.y)
+luasS2 <- (S2.TAkhir.x - S2.TAwal.x) * (S2.TAkhir.y - S2.TAwal.y)
+
+cekinput <- False
+
+while not cekinput do
+    if (S1.TAwal.x = S1.TAkhir.x) or (S1.TAwal.y = S1.TAkhir.y) then
+        output("false input")
+        input(S1)
+    else if (S2.TAwal.x = S2.TAkhir.x) or (S2.TAwal.y = S2.TAkhir.y) then
+        output("false input")
+        input(S2)
+    else
+        cekinput <- True
+
+if luasS1 < 0 then
+    luasS1 <- -(luasS1)
+else if luasS2 < 0 then
+    luasS1 <- -(luasS2)
+
+if (luasS1 > luasS2) then
+    output("SegiEmpat pertama lebih luas daripada SegiEmpat kedua")
+else if (luasS2 > luasS1) then
+    output("SegiEmpat kedua lebih luas daripada SegiEmpat pertama")
+else if (luasS1 = luasS2) then
+    output("Luas SegiEmpat sama")
+
+

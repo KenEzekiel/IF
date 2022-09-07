@@ -1,0 +1,31 @@
+{PROGRAM penjualan}
+
+{KAMUS}
+{
+type penjualan : < Kategori : string,
+                    KdBarang: string,
+                    Jumlah : integer>
+
+file : SEQFILE of
+    (*) data_jual : penjualan
+    (1) mark_jual
+
+category : string
+amount : integer
+}
+
+{ALGORITMA}
+    assign (file, "datapenjualan.dat")
+    open(file, data_jual)
+
+    if (EOP(data_jual)) then
+        output ("Arsip kosong")
+    else
+        while not (EOP(data_jual)) do
+            category <- data_jual.Kategori
+            value <- 0
+            while category = data_jual.Kategori
+                value <- value + 1
+                read (file, data_jual)
+            output (category, "-", value)
+    close(file)

@@ -1,0 +1,33 @@
+{KAMUS}
+type jam :
+    < HH : integer[0..23]; {bagian jam}
+      MM : integer[0..59]; {bagian menit}
+      SS : integer[0..59]; {bagian detik}>
+
+{DEFINISI DAN PROSEDUR}
+Program BentukJam
+{Membentuk sebuah tipe variabel jam jika semua variabel input valid}
+
+KAMUS  
+    h, m, s : integer
+    J : jam
+    cekinput : boolean
+
+ALGORITMA
+
+cekinput <- False
+
+while not cekinput do
+    input(h)
+    input(m)
+    input(s)
+    if (0 <= h <= 23) and (0 <= m <= 59) and (0 <= s <= 59) then
+        cekinput <- True
+        J.HH = h
+        J.MM = m
+        J.SS = s
+    else
+        output("Tidak dapat membentuk jam)
+
+
+

@@ -1,0 +1,24 @@
+Program UTS
+{Menerima masukan nilai UTS dan mengembalikan rata-ratanya
+Masukan akan terus diminta sampai ada nilai UTS yang tidak masuk kedalam range}
+
+KAMUS
+    nilai, mean : integer {0..100}
+    masukan, ada_data : boolean
+
+ALGORITMA
+
+masukan <- True
+ada_data <- False
+rata <- 0
+
+while masukan do
+    input(nilai)
+    if 0 <= nilai <= 100 then
+        rata <- (rata + nilai) / 2
+        ada_data <- True
+    else
+        masukan <- False
+
+if not ada_data then
+    output("Tidak ada data")

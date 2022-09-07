@@ -1,0 +1,32 @@
+KAMUS
+    constant NMax : integer = 100
+
+    type MatKul : 
+            < 
+            KodeMK     : integer, 
+            NamaMK     : string, 
+            Pengajar   : string, 
+            JmlPeserta : integer[0..100] 
+            >
+
+    type TabMatKul : 
+      < TM : array [1..NMax] of MatKul,
+        NELMT : integer { nilai efektif [0..NMax], 0 jika tabel kosong } >
+
+    function IdxPengajarMK (input P: string, input T: TabMatKul) -> integer
+        {
+        Menerima masukan nama pengajar (P) dan mengembalikan indeks dimana P ditemukan terakhir kali
+        Jika P tidak ditemukan, maka mengembalikan 0, T mungkin kosong
+
+        KAMUS LOKAL
+        i, idx : integer
+
+        ALGORITMA
+        }
+        if T.NELMT = 0 then
+            -> 0
+        else
+            i traversal [0..T.NELMT]
+                if T.TM[i] = P then
+                    idx <- i
+            -> idx

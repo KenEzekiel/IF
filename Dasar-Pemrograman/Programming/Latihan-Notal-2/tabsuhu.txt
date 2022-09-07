@@ -1,0 +1,86 @@
+KAMUS
+    constant NMax : integer = 366
+    type TabSuhu : < Tab : array [1..NMax] of real;
+                     Neff : integer > { Bernilai >=0, merupakan nilai efektif array;
+                                      Neff=0 berarti array kosong }
+
+    procedure InputTabSuhu (input N: int, output T: TabSuhu)
+        {
+        I.S. N sebagai banyaknya hari yang akan diinputkan dan T sebagai 
+        array kosong yang memiliki elemen sebanyak N dan indeks dari 0 sampai N-1 sudah terdefinisi
+    
+        F.S. Seluruh masukan suhu sebanyak N hari tersimpan dalam T
+    
+        KAMUS LOKAL
+        i : integer
+
+        ALGORITMA
+        }
+
+        i <- 0
+        T.Neff <- N
+        while i < N do
+            T.Tab[i] <- input()
+            i <- i + 1
+    
+    procedure PrintGtX (input T: TabSuhu, input X: real)
+        {
+        I.S. T terdefinisi
+    
+        F.S. Menuliskan semua elemen dalam T.Tab yang lebih besar dari X
+    
+        KAMUS LOKAL
+        i : integer
+
+        ALGORITMA
+        }
+
+        i <- 0
+        while i < T.Neff do
+            if T.Tab[i] > X then
+                output(T.Tab[i])
+            else
+                {do nothing}
+            i <- i + 1
+    
+    procedure FindMax (input T: TabSuhu) -> real
+        {
+        I.S. T tidak kosong
+    
+        F.S. Menghasilkan suhu terbesar yang ada di T
+
+        KAMUS LOKAL
+        i, Max : integer
+
+        ALGORITMA
+        }
+
+        Max <- T.Tab[0]
+        i traversal [1..T.Neff]
+            if T.Tab[i] > Max then
+                Max <- T.Tab[i]
+            else
+                {do nothing}
+    
+        output(Max)
+
+    procedure SearchGtX (input T: TabSuhu) -> real
+        {
+        I.S. T bisa kosong dan bisa tidak
+
+        F.S. menghasilkan True jika ada elemen yang lebih besar dari X
+
+        KAMUS LOKAL
+        i, X : integer
+
+        ALGORITMA
+        }
+
+        ada <- False
+        i traversal [0..T.Neff]
+            if T.Tab[i] > X then
+                ada <- True
+            else
+                {do nothing}
+        
+        output(ada)

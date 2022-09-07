@@ -1,0 +1,28 @@
+{PROGRAM penjualan}
+
+{KAMUS}
+{
+type nilaiMhs : < NIM : string,
+                Nilai : integer>
+
+arrNilai : < tab : array [1..N] of nilaiMhs,
+            Neff : integer [1..N] >
+
+nim : string
+nilai : integer
+}
+
+{ALGORITMA}
+    indeks <- 1
+    if (Neff < 1) then
+        output("Data Kosong")
+    while indeks <= Neff do
+        nim <- arrNilai.tab[indeks].NIM
+        nilai <- 0
+        while nim = arrNilai.tab[indeks].NIM
+            nilai <- (nilai + arrNilai.tab[indeks].Nilai) / 2
+            indeks <- indeks + 1
+        output (nim, nilai)
+
+{Yang menjadi mark adalah elemen terakhir dari array, alias mark bisa
+digantikan dengan indeks terakhir dari panjang array ditambah 1}

@@ -1,0 +1,7 @@
+Bisakah soal 1 diselesaikan dengan menggunakan pendekatan pencacah (counting sort)? 
+Jelaskan jawaban anda. 
+
+Menurut saya soal 1 dapat diselesaikan dengan menggunakan pendekatan
+pencacah karena range dari data diketahui (nilai : [0..100]) dan merupakan integer
+sehingga semua valuenya dapat dihitung dan semua indeks dapat disusun kembali dari
+yang terbesar sampai ke yang terkecil.

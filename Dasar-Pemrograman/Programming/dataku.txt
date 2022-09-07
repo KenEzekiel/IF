@@ -1,0 +1,1 @@
+& C:/Python310/python.exe "e:/OneDrive - Institut Teknologi Bandung/Ken/Kuliah/!Semester 2/DasPro/Programming/Praktikum/Praktikum-6/countvokal.py"

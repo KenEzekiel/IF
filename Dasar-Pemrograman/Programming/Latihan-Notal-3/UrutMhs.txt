@@ -1,0 +1,32 @@
+{KAMUS}
+
+type TMahasiswa : < NIM : string;  
+
+                    Nama : string; 
+
+                    Nilai : integer[0..100] > 
+
+type TabMhs : < TM : array [1..NMax] of TMahasiswa; 
+
+                Neff : integer[0..NMax] { nilai efektif TabMhs } > 
+
+
+procedure UrutTabMhs (input/output TMhs : TabMhs) 
+    {I.S. TMhs terdefinisi namun belum terurut
+    F.S. TMhs terurut secara mengecil}
+    {KAMUS LOKAL}
+    {i, j, IMax : integer
+    Placeholder : TMahasiswa}
+    {ALGORITMA}
+    if (TMhs.Neff > 1) then
+        i traversal [1..TMhs.Neff-1]
+            {Menentukan indeks dimana nilai maksimum ditemukan}
+            IMax <- i
+            j traversal [i+1..TMhs.Neff]
+                if TMhs.TM.Nilai[IMax] < TMhs.TM.Nilai[j] then
+                    IMax <- j
+            {TMhs.TM.Nilai[IMax] sebagai nilai maksimum mahasiswa}
+            Placeholder <- TMhs.TM[IMax]
+            TMhs.TM[IMax] <- TMhs.TM[i]
+            TMhs.TM[i] <- Placeholder
+
