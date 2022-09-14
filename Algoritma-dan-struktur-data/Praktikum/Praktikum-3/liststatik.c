@@ -32,10 +32,10 @@ int listLength(ListStatik l)
     /* Mengirimkan banyaknya elemen efektif List */
     /* Mengirimkan nol jika List kosong */
     /*KAMUS LOKAL*/
-    int i = IDX_MIN;
+    int i = 0;
     /*ALGORITMA*/
 
-    while (ELMT(l, i) != MARK)
+    while ((ELMT(l, i) != MARK) && (i < CAPACITY))
     {
         i++;
     }
@@ -69,7 +69,7 @@ boolean isIdxValid(ListStatik l, IdxType i)
     /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas List l */
     /* yaitu antara indeks yang terdefinisi utk container*/
 
-    if ((i >= 0) && (i <= (CAPACITY - 1)))
+    if ((i >= IDX_MIN) && (i <= (CAPACITY - 1)))
     {
         return true;
     }
@@ -80,7 +80,7 @@ boolean isIdxEff(ListStatik l, IdxType i)
 {
     /* Mengirimkan true jika i adalah indeks yang terdefinisi utk List l */
     /* yaitu antara 0..length(l)-1 */
-    if ((i >= 0) && (i <= (listLength(l) - 1)))
+    if ((i >= getFirstIdx(l)) && (i <= getLastIdx(l)))
     {
         return true;
     }
@@ -128,8 +128,6 @@ void readList(ListStatik *l)
         {
             valid = true;
         }
-        else
-            printf("n tidak valid\n");
     }
     CreateListStatik(l);
     for (i = 0; i <= n - 1; i++)
@@ -157,7 +155,7 @@ void printList(ListStatik l)
             printf(",");
         }
     }
-    printf("]\n");
+    printf("]");
 }
 
 /* ********** OPERATOR ARITMATIKA ********** */
@@ -273,6 +271,8 @@ void extremeValues(ListStatik l, ElType *max, ElType *min)
             minval = ELMT(l, i);
         }
     }
+    *max = maxval;
+    *min = minval;
 }
 
 /* ********** MENAMBAH ELEMEN ********** */
@@ -323,7 +323,7 @@ void insertLast(ListStatik *l, ElType val)
     /*ALGORITMA*/
     if (isFull(*l) != true)
     {
-        i = getLastIdx(*l);
+        i = getLastIdx(*l) + 1;
         ELMT(*l, i) = val;
     }
 }
