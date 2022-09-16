@@ -383,7 +383,6 @@ void deleteLast(ListStatik *l, ElType *val)
     /*      Banyaknya elemen List berkurang satu */
     /*      List l mungkin menjadi kosong */
     /*KAMUS LOKAL*/
-    int i;
     /*ALGORITMA*/
     if (isEmpty(*l) != true)
     {
