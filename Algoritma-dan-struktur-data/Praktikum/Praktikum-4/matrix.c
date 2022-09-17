@@ -406,60 +406,50 @@ void pNegation(Matrix *m)
     }
 }
 
-void coFactor(Matrix m, Matrix *temp, int p, int q, int n)
-{
-    int i, j;
-    int x = 0;
-    int y = 0;
-
-    for (i = 0; i < n; i++)
-    {
-        for (j = 0; j < n; j++)
-        {
-            // Copy m ke temp kecuali elemen baris x, y
-            if ((i != p) && (j != q))
-            {
-                y++;
-                ELMT(*temp, x, y) = ELMT(m, i, j);
-
-                // Baris terisi, reset kolom dan tambah indeks baris
-                if (y == (n - 1))
-                {
-                    y = 0;
-                    x++;
-                }
-            }
-        }
-    }
-}
-
 float det(Matrix m, int n)
 {
     // Menggunakan rekursif
     /*KAMUS LOKAL*/
-    float hasil = 0;
     Matrix temp;
-    int sign = 1;
-    int i;
+    int i, j, k, x, y;
+    float d;
+    int Sign = 1;
     /*ALGORITMA*/
-    // BASE
-    if (n == 1) // Jika matrix memiliki 1 elemen saja
+    // BASIS
+    if (n == 2)
     {
-        return ELMT(m, 0, 0);
+        d = 0;
+        d = ELMT(m, 0, 0) * ELMT(m, 1, 1) - ELMT(m, 0, 1) * ELMT(m, 1, 0);
+        return d;
     }
-
-    createMatrix(ROW_EFF(m), COL_EFF(m), &temp);
-
-    for (i = 0; i < n; i++)
+    // REKURENS
+    else
     {
-        coFactor(m, &temp, 0, i, n);
-        hasil += sign * ELMT(m, 0, i) * det(temp, (n - 1));
-
-        // Alternate sign
-        sign = (-sign);
+        for (i = 0; i < n; i++)
+        {
+            x = 0;
+            y = 0;
+            for (j = 0; j < n; j++)
+            {
+                for (k = 0; k < n; k++)
+                {
+                    if (j != 0 && k != i)
+                    {
+                        ELMT(temp, x, y) = ELMT(m, i, j);
+                        y++;
+                        if (y > n - 2)
+                        {
+                            x++;
+                            y = 0;
+                        }
+                    }
+                }
+            }
+            d = d + Sign * (ELMT(m, 0, i) * det(temp, n - 1));
+            Sign = (-1) * Sign;
+        }
     }
-
-    return hasil;
+    return d;
 }
 
 float determinant(Matrix m)
