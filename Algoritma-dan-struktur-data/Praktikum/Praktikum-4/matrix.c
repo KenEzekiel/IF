@@ -313,16 +313,31 @@ boolean isIdentity(Matrix m)
        setiap elemen diagonal m bernilai 1 dan elemen yang bukan diagonal bernilai 0 */
     /*KAMUS LOKAL*/
     boolean id = true;
-    int i;
+    int i, j;
     /*ALGORITMA*/
     i = 0;
+    j = 0;
     if (isSquare(m) == true)
     {
         while ((i < ROW_EFF(m)) && (id != false))
         {
-            if (ELMT(m, i, i) != 1)
+            while ((j < COL_EFF(m)) && (id != false))
             {
-                id = false;
+                if (i == j)
+                {
+                    if (ELMT(m, i, j) != 1)
+                    {
+                        id = false;
+                    }
+                }
+                else
+                {
+                    if (ELMT(m, i, j) != 0)
+                    {
+                        id = false;
+                    }
+                }
+                j++;
             }
             i++;
         }
@@ -339,7 +354,7 @@ boolean isSparse(Matrix m)
     /* Mengirimkan true jika m adalah matriks sparse: matriks “jarang” dengan definisi:
        hanya maksimal 5% dari memori matriks yang efektif bukan bernilai 0 */
     /*KAMUS LOKAL*/
-    float max = (ROW_EFF(m) * COL_EFF(m)) * 5 / 100;
+    float max = (ROW_EFF(m) * COL_EFF(m)) * 0.05;
     max = (int)max; // Round down
     int countNotZero = 0;
     int i, j;
