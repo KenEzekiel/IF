@@ -10,6 +10,7 @@ NIM : 13521089*/
 
 #include "listdin.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create list kosong  */
@@ -60,7 +61,7 @@ boolean isIdxValid(ListDin l, IdxType i)
 {
     /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas list l */
     /* yaitu antara indeks yang terdefinisi utk container*/
-    return (i >= IDX_MIN) && (i <= (IdxType)CAPACITY(l) - 1);
+    return (i >= IDX_MIN) && (i < CAPACITY(l));
 }
 boolean isIdxEff(ListDin l, IdxType i)
 {
@@ -184,7 +185,7 @@ boolean isListEqual(ListDin l1, ListDin l2)
     /*ALGORITMA*/
     if (NEFF(l1) == NEFF(l2))
     {
-        while ((equal == true) && (i <= NEFF(l1) - 1))
+        while ((i < NEFF(l1)) && (equal == true))
         {
             if (ELMT(l1, i) != ELMT(l2, i))
             {
@@ -211,9 +212,9 @@ IdxType indexOf(ListDin l, ElType val)
     /*KAMUS LOKAL*/
     int i = 0;
     boolean found = false;
-    IdxType idx;
+    IdxType idx = IDX_UNDEF;
     /*ALGORITMA*/
-    while ((found != true) && (i <= NEFF(l) - 1))
+    while ((i < NEFF(l)) && (found != true))
     {
         if (ELMT(l, i) == val)
         {
@@ -263,7 +264,7 @@ void copyList(ListDin lIn, ListDin *lOut)
     /*ALGORITMA*/
     CreateListDin(lOut, CAPACITY(lIn));
     NEFF(*lOut) = NEFF(lIn);
-    for (i = 0; i <= NEFF(lIn) - 1; i++)
+    for (i = 0; i < NEFF(lIn); i++)
     {
         ELMT(*lOut, i) = ELMT(lIn, i);
     }
@@ -276,7 +277,7 @@ ElType sumList(ListDin l)
     ElType sum = 0;
     IdxType i;
     /*ALGORITMA*/
-    for (i = 0; i <= NEFF(l) - 1; i++)
+    for (i = 0; i < NEFF(l); i++)
     {
         sum = sum + ELMT(l, i);
     }
@@ -290,7 +291,7 @@ int countVal(ListDin l, ElType val)
     int count = 0;
     int i;
     /*ALGORITMA*/
-    for (i = 0; i <= NEFF(l) - 1; i++)
+    for (i = 0; i < NEFF(l); i++)
     {
         if (ELMT(l, i) == val)
         {
@@ -316,7 +317,7 @@ void sort(ListDin *l, boolean asc)
     /*ALGORITMA*/
     if (asc == true)
     {
-        for (i = 1; i <= NEFF(*l) - 1; i++)
+        for (i = 1; i < NEFF(*l); i++)
         {
             temp = ELMT(*l, i);
             idx = i - 1;
@@ -338,7 +339,7 @@ void sort(ListDin *l, boolean asc)
     }
     else
     {
-        for (i = 1; i <= NEFF(*l) - 1; i++)
+        for (i = 1; i < NEFF(*l); i++)
         {
             temp = ELMT(*l, i);
             idx = i - 1;
@@ -368,12 +369,10 @@ void insertLast(ListDin *l, ElType val)
     /* I.S. List l boleh kosong, tetapi tidak penuh */
     /* F.S. val adalah elemen terakhir l yang baru */
     /*KAMUS LOKAL*/
-    int i;
     /*ALGORITMA*/
     if (isFull(*l) != true)
     {
-        i = NEFF(*l);
-        ELMT(*l, i) = val;
+        ELMT(*l, NEFF(*l)) = val;
         NEFF(*l)
         ++;
     }

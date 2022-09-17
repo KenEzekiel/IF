@@ -8,6 +8,7 @@ NIM : 13521089*/
 /* Banyaknya elemen didefinisikan secara implisit, memori list statik */
 
 #include "liststatik.h"
+#include <stdio.h>
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */
@@ -35,7 +36,7 @@ int listLength(ListStatik l)
     int i = 0;
     /*ALGORITMA*/
 
-    while ((ELMT(l, i) != MARK) && (i < CAPACITY))
+    while ((i < CAPACITY) && (ELMT(l, i) != MARK))
     {
         i++;
     }
@@ -53,13 +54,14 @@ IdxType getLastIdx(ListStatik l)
 {
     /* Prekondisi : List l tidak kosong */
     /* Mengirimkan indeks elemen l terakhir */
-    if (listLength(l) == 0)
+    int len = listLength(l);
+    if (len == 0)
     {
         return IDX_MIN;
     }
     else
     {
-        return (listLength(l) - 1);
+        return (len - 1);
     }
 }
 
@@ -146,11 +148,12 @@ void printList(ListStatik l)
     /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
     /* Jika List kosong : menulis [] */
     int i;
+    int len = listLength(l);
     printf("[");
-    for (i = 0; i <= listLength(l) - 1; i++)
+    for (i = 0; i < len; i++)
     {
         printf("%d", ELMT(l, i));
-        if (i != listLength(l) - 1)
+        if (i != len - 1)
         {
             printf(",");
         }
@@ -173,7 +176,7 @@ ListStatik plusMinusList(ListStatik l1, ListStatik l2, boolean plus)
     /*ALGORITMA*/
     CreateListStatik(&LHasil);
 
-    for (i = 0; i <= listLength(l1) - 1; i++)
+    for (i = 0; i < listLength(l1); i++)
     {
         if (plus == true)
         {
@@ -196,10 +199,12 @@ boolean isListEqual(ListStatik l1, ListStatik l2)
     /*KAMUS LOKAL*/
     boolean equal = true;
     int i;
+    int len1 = listLength(l1);
+    int len2 = listLength(l2);
     /*ALGORITMA*/
-    if (listLength(l1) == listLength(l2))
+    if (len1 == len2)
     {
-        for (i = 0; i <= listLength(l1); i++)
+        for (i = 0; i < len1; i++)
         {
             if (ELMT(l1, i) != ELMT(l2, i))
             {
@@ -226,7 +231,7 @@ int indexOf(ListStatik l, ElType val)
     int i = 0;
     boolean found = false;
     /*ALGORITMA*/
-    while (found != true)
+    while ((i < CAPACITY) && (found != true))
     {
         if (ELMT(l, i) == val)
         {
@@ -260,7 +265,7 @@ void extremeValues(ListStatik l, ElType *max, ElType *min)
     /*ALGORITMA*/
     maxval = ELMT(l, 0);
     minval = ELMT(l, 0);
-    for (i = 0; i <= listLength(l) - 1; i++)
+    for (i = 0; i < listLength(l); i++)
     {
         if (ELMT(l, i) > maxval)
         {
@@ -319,12 +324,10 @@ void insertLast(ListStatik *l, ElType val)
     /* I.S. List l boleh kosong, tetapi tidak penuh */
     /* F.S. val adalah elemen terakhir l yang baru */
     /*KAMUS LOKAL*/
-    int i;
     /*ALGORITMA*/
     if (isFull(*l) != true)
     {
-        i = getLastIdx(*l) + 1;
-        ELMT(*l, i) = val;
+        ELMT(*l, listLength(*l)) = val;
     }
 }
 
@@ -405,10 +408,11 @@ void sortList(ListStatik *l, boolean asc)
     int i, j;
     ElType temp;
     IdxType idx;
+    int len = listLength(*l);
     /*ALGORITMA*/
     if (asc == true)
     {
-        for (i = 1; i <= listLength(*l) - 1; i++)
+        for (i = 1; i < len; i++)
         {
             temp = ELMT(*l, i);
             idx = i - 1;
@@ -430,7 +434,7 @@ void sortList(ListStatik *l, boolean asc)
     }
     else
     {
-        for (i = 1; i <= listLength(*l) - 1; i++)
+        for (i = 1; i < len; i++)
         {
             temp = ELMT(*l, i);
             idx = i - 1;
