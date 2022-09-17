@@ -167,15 +167,18 @@ Matrix multiplyMatrix(Matrix m1, Matrix m2)
     /* Mengirim hasil perkalian matriks: salinan m1 * m2 */
     /*KAMUS LOKAL*/
     Matrix m3;
-    int i, j;
+    int i, j, k;
     /*ALGORITMA*/
-    createMatrix(ROW_EFF(m1), COL_EFF(m1), &m3);
+    createMatrix(ROW_EFF(m1), COL_EFF(m2), &m3);
 
     for (i = 0; i < ROW_EFF(m3); i++)
     {
         for (j = 0; j < COL_EFF(m3); j++)
         {
-            ELMT(m3, i, j) = ELMT(m1, i, j) * ELMT(m2, i, j);
+            for (k = 0; k < COL_EFF(m1); k++)
+            {
+                ELMT(m3, i, j) += ELMT(m1, i, k) * ELMT(m2, k, j);
+            }
         }
     }
     return m3;
@@ -250,7 +253,7 @@ boolean isMatrixEqual(Matrix m1, Matrix m2)
 boolean isMatrixNotEqual(Matrix m1, Matrix m2)
 {
     /* Mengirimkan true jika m1 tidak sama dengan m2 */
-    return isMatrixEqual(m1, m2) != true;
+    return !isMatrixEqual(m1, m2);
 }
 boolean isMatrixSizeEqual(Matrix m1, Matrix m2)
 {
