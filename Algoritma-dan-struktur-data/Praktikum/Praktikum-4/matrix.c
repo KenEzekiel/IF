@@ -35,12 +35,12 @@ boolean isMatrixIdxValid(int i, int j)
 IdxType getLastIdxRow(Matrix m)
 {
     /* Mengirimkan Index baris terbesar m */
-    return ROW_EFF(m);
+    return (ROW_EFF(m) - 1);
 }
 IdxType getLastIdxCol(Matrix m)
 {
     /* Mengirimkan Index kolom terbesar m */
-    return COL_EFF(m);
+    return (COL_EFF(m) - 1);
 }
 boolean isIdxEff(Matrix m, IdxType i, IdxType j)
 {
