@@ -406,6 +406,38 @@ void pNegation(Matrix *m)
     }
 }
 
+Matrix minor(Matrix m, int row, int col)
+{
+    /*Prekondisi: isSquare(m), isIdxEff(m, row, col)*/
+    /*Return matrix minor, dimana row dan col dihilangkan*/
+
+    /*KAMUS LOKAL*/
+    Matrix temp;
+    int i, j, x, y;
+
+    /*ALGORITMA*/
+    createMatrix(ROW_EFF(m) - 1, COL_EFF(m) - 1, &temp);
+
+    x = 0;
+    for (i = 0; i < ROW_EFF(m); i++)
+    {
+        if (i != row)
+        {
+            y = 0;
+            for (j = 0; j < COL_EFF(m); j++)
+            {
+                if (j != col)
+                {
+                    ELMT(temp, x, y) = ELMT(m, i, j);
+                    y++;
+                }
+            }
+            x++;
+        }
+    }
+    return temp;
+}
+
 float determinant(Matrix m)
 {
     /* Prekondisi: isSquare(m) */
@@ -413,32 +445,25 @@ float determinant(Matrix m)
     /*Menggunakan matrix segitiga atas -> rekursi*/
     /*Menggunakan OBE mengurangkan dengan k kali baris lain, sehingga tidak mengubah determinan*/
     /*KAMUS LOKAL*/
-    Matrix temp;
     int i, j;
-    float konst;
+    float det;
+    int sign = 1;
 
     /*ALGORITMA*/
     // Basis
-    // Return determinan matriks nya jika matriks berukuran 2x2
-    if (ROW_EFF(m) == 2)
+    // Return elemen satu-satunya matriks nya jika matriks berukuran 1x1
+    if (ROW_EFF(m) == 1)
     {
-        return (ELMT(m, 0, 0) * ELMT(m, 1, 1)) - (ELMT(m, 0, 1) * ELMT(m, 1, 0));
+        return ELMT(m, 0, 0);
     }
-    else
+    det = 0;
+    // Rekurens
+    for (i = 0; i < COL_EFF(m); i++)
     {
-        // Rekurens
-        createMatrix(ROW_EFF(m) - 1, COL_EFF(m) - 1, &temp);
-        for (i = 1; i < ROW_EFF(m); i++)
-        {
-            konst = ELMT(m, i, 0) / ELMT(m, 0, 0);
-            for (j = 1; j < COL_EFF(m); j++)
-            {
-                ELMT(temp, i - 1, j - 1) = ELMT(m, i, j) - konst * ELMT(m, 0, j);
-            }
-        }
-        displayMatrix(temp);
-        return (ELMT(m, 0, 0) * determinant(temp));
+        det += sign * ELMT(m, 0, i) * determinant(minor(m, 0, i));
+        sign *= (-1);
     }
+    return det;
 }
 Matrix transpose(Matrix m)
 {
