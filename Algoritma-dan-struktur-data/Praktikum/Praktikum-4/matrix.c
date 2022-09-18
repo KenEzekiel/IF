@@ -230,14 +230,14 @@ boolean isMatrixEqual(Matrix m1, Matrix m2)
     i = 0;
     j = 0;
     // Jika ukuran matrix berbeda, maka matrix tidak mungkin sama
-    if ((ROW_EFF(m1) != ROW_EFF(m2)) || (COL_EFF(m1) != COL_EFF(m2)))
+    if ((countElmt(m1) != countElmt(m2)))
     {
         eq = false;
     }
     // Skema searching untuk mencari ketidaksamaan
-    while ((i < ROW_EFF(m1) && (eq == true)))
+    while ((eq == true) && (i < ROW_EFF(m1)))
     {
-        while ((j < COL_EFF(m2)) && (eq == true))
+        while ((eq == true) && (j < COL_EFF(m1)))
         {
             if (ELMT(m1, i, j) != ELMT(m2, i, j))
             {
@@ -266,7 +266,7 @@ boolean isMatrixSizeEqual(Matrix m1, Matrix m2)
 int countElmt(Matrix m)
 {
     /* Mengirimkan banyaknya elemen m */
-    return ROW_EFF(m) * COL_EFF(m) - (COL_EFF(m) - (getLastIdxCol(m) + 1));
+    return (ROW_EFF(m) * COL_EFF(m)) - (COL_EFF(m) - (getLastIdxCol(m) + 1));
 }
 
 /* ********** KELOMPOK TEST TERHADAP Matrix ********** */
