@@ -406,57 +406,39 @@ void pNegation(Matrix *m)
     }
 }
 
-float det(Matrix m, int n)
-{
-    // Menggunakan rekursif
-    /*KAMUS LOKAL*/
-    Matrix temp;
-    int i, j, k, x, y;
-    float d;
-    int Sign = 1;
-    /*ALGORITMA*/
-    // BASIS
-    if (n == 2)
-    {
-        d = 0;
-        d = ELMT(m, 0, 0) * ELMT(m, 1, 1) - ELMT(m, 0, 1) * ELMT(m, 1, 0);
-        return d;
-    }
-    // REKURENS
-    else
-    {
-        for (i = 0; i < n; i++)
-        {
-            x = 0;
-            y = 0;
-            for (j = 0; j < n; j++)
-            {
-                for (k = 0; k < n; k++)
-                {
-                    if (j != 0 && k != i)
-                    {
-                        ELMT(temp, x, y) = ELMT(m, i, j);
-                        y++;
-                        if (y > n - 2)
-                        {
-                            x++;
-                            y = 0;
-                        }
-                    }
-                }
-            }
-            d = d + Sign * (ELMT(m, 0, i) * det(temp, n - 1));
-            Sign = (-1) * Sign;
-        }
-    }
-    return d;
-}
-
 float determinant(Matrix m)
 {
     /* Prekondisi: isSquare(m) */
     /* Menghitung nilai determinan m */
-    return det(m, ROW_EFF(m));
+    /*Menggunakan matrix segitiga atas -> rekursi*/
+    /*Menggunakan OBE mengurangkan dengan k kali baris lain, sehingga tidak mengubah determinan*/
+    /*KAMUS LOKAL*/
+    Matrix temp;
+    int i, j;
+    float konst;
+
+    /*ALGORITMA*/
+    // Basis
+    // Return determinan matriks nya jika matriks berukuran 2x2
+    if (ROW_EFF(m) == 2)
+    {
+        return (ELMT(m, 0, 0) * ELMT(m, 1, 1)) - (ELMT(m, 0, 1) * ELMT(m, 1, 0));
+    }
+    else
+    {
+        // Rekurens
+        createMatrix(ROW_EFF(m) - 1, COL_EFF(m) - 1, &temp);
+        for (i = 1; i < ROW_EFF(m); i++)
+        {
+            konst = ELMT(m, i, 0) / ELMT(m, 0, 0);
+            for (j = 1; j < COL_EFF(m); j++)
+            {
+                ELMT(temp, i - 1, j - 1) = ELMT(m, i, j) - konst * ELMT(m, 0, j);
+            }
+        }
+        displayMatrix(temp);
+        return (ELMT(m, 0, 0) * determinant(temp));
+    }
 }
 Matrix transpose(Matrix m)
 {
