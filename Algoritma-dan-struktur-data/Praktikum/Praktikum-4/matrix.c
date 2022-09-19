@@ -175,6 +175,7 @@ Matrix multiplyMatrix(Matrix m1, Matrix m2)
     {
         for (j = 0; j < COL_EFF(m3); j++)
         {
+            ELMT(m3, i, j) = 0;
             for (k = 0; k < COL_EFF(m1); k++)
             {
                 ELMT(m3, i, j) += ELMT(m1, i, k) * ELMT(m2, k, j);
