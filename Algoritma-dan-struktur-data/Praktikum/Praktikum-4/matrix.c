@@ -57,9 +57,10 @@ ElType getElmtDiagonal(Matrix m, IdxType i)
 void copyMatrix(Matrix mIn, Matrix *mOut)
 {
     /* Melakukan assignment mOut <- mIn */
-    *mOut = mIn;
     ROW_EFF(*mOut) = ROW_EFF(mIn);
     COL_EFF(*mOut) = COL_EFF(mIn);
+
+    *mOut = mIn;
 }
 
 /* ********** KELOMPOK BACA/TULIS ********** */
