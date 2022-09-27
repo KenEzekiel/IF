@@ -5,6 +5,10 @@
 
 #include "wordmachine.h"
 
+/* State Mesin Word */
+boolean EndWord;
+Word currentWord;
+
 void IgnoreBlanks()
 {
     /* Mengabaikan satu atau beberapa BLANK
@@ -50,6 +54,7 @@ void ADVWORD()
     else
     {
         CopyWord();
+        IgnoreBlanks();
     }
 }
 
@@ -65,12 +70,23 @@ void CopyWord()
     int i = 0;
 
     /*ALGORITMA*/
-    currentWord.Length = 0;
-    while ((currentChar != MARK) || (currentChar != BLANK) || (currentWord.Length < NMax))
+    // Pemrosesan elemen pertama
+    currentWord.TabWord[i] = currentChar;
+    ADV();
+    i++;
+    // Pemrosesan elemen selanjutnya sampai bertemu MARK atau BLANK
+    while ((currentChar != MARK) && (currentChar != BLANK))
     {
-        currentWord.TabWord[i] = currentChar;
-        ADV();
-        i++;
-        currentWord.Length = i;
+        if (i < NMax)
+        {
+            currentWord.TabWord[i] = currentChar;
+            ADV();
+            i++;
+        }
+        else
+        {
+            ADV();
+        }
     }
+    currentWord.Length = i;
 }
