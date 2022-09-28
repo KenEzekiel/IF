@@ -507,3 +507,212 @@ void pTranspose(Matrix *m)
 
     *m = mhasil;
 }
+
+/* Operasi berbasis baris dan per kolom */
+
+float AvgRow(Matrix M, IdxType i)
+{
+    /* Menghasilkan rata-rata dari elemen pada baris ke-i */
+    /* Prekondisi: i adalah indeks baris efektif dari M */
+    /*KAMUS LOKAL*/
+    int j;
+    float val = 0;
+    int count = 0;
+
+    /*ALGORITMA*/
+    for (j = 0; j < COL_EFF(M); j++)
+    {
+        val = val + ELMT(M, i, j);
+        count++;
+    }
+    return val / count;
+}
+
+float AvgCol(Matrix M, IdxType j)
+{
+    /* Menghasilkan rata-rata dari elemen pada kolom ke-j */
+    /* Prekondisi: j adalah indeks kolom efektif dari M */
+    int i;
+    float val = 0;
+    int count = 0;
+
+    /*ALGORITMA*/
+    for (i = 0; i < ROW_EFF(M); i++)
+    {
+        val = val + ELMT(M, i, j);
+        count++;
+    }
+    return val / count;
+}
+
+void MinMaxRow(Matrix M, IdxType i, ElType *max, ElType *min)
+{
+    /* I.S. i adalah indeks baris efektif dari M, M terdefinisi */
+    /* F.S. max berisi elemen maksimum pada baris i dari M
+    min berisi elemen minimum pada baris i dari M */
+    /*KAMUS LOKAL*/
+    ElType tempmax = ELMT(M, i, 0);
+    ElType tempmin = ELMT(M, i, 0);
+    int j;
+
+    /*ALGORITMA*/
+    for (j = 0; j < COL_EFF(M); j++)
+    {
+        if (ELMT(M, i, j) > tempmax)
+        {
+            tempmax = ELMT(M, i, j);
+        }
+        if (ELMT(M, i, j) < tempmin)
+        {
+            tempmin = ELMT(M, i, j);
+        }
+    }
+    *max = tempmax;
+    *min = tempmin;
+}
+
+void MinMaxCol(Matrix M, IdxType j, ElType *max, ElType *min)
+{
+    /* I.S. j adalah indeks kolom efektif dari M, M terdefinisi */
+    /* F.S. max berisi elemen maksimum pada kolom j dari M
+    min berisi elemen minimum pada kolom j dari M */
+    /*KAMUS LOKAL*/
+    ElType tempmax = ELMT(M, 0, j);
+    ElType tempmin = ELMT(M, 0, j);
+    int i;
+
+    /*ALGORITMA*/
+    for (i = 0; i < ROW_EFF(M); i++)
+    {
+        if (ELMT(M, i, j) > tempmax)
+        {
+            tempmax = ELMT(M, i, j);
+        }
+        if (ELMT(M, i, j) < tempmin)
+        {
+            tempmin = ELMT(M, i, j);
+        }
+    }
+    *max = tempmax;
+    *min = tempmin;
+}
+
+int CountNumRow(Matrix M, IdxType i, ElType X)
+{
+    /* Menghasilkan banyaknya kemunculan X pada baris i dari M */
+    /*KAMUS LOKAL*/
+    int count = 0;
+    int j;
+
+    /*ALGORITMA*/
+    for (j = 0; j < COL_EFF(M); j++)
+    {
+        if (ELMT(M, i, j) == X)
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+int CountNumCol(Matrix M, IdxType j, ElType X)
+{
+    /* Menghasilkan banyaknya kemunculan X pada kolom j dari M */
+    /*KAMUS LOKAL*/
+    int count = 0;
+    int i;
+
+    /*ALGORITMA*/
+    for (i = 0; i < ROW_EFF(M); i++)
+    {
+        if (ELMT(M, i, j) == X)
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+void RotateMat(Matrix *m)
+{
+    /* I.S. m terdefinisi dan IsSquare(m) */
+    /* F.S. m "di-rotasi" searah jarum jam
+       untuk semua "lapisan" elemen mulai dari yang terluar
+       Contoh matrix 3x3 sebelum dirotasi:
+       1 2 3
+
+       4 5 6
+
+       7 8 9
+
+       Contoh matrix 3x3 setelah dirotasi:
+       4 1 2
+
+       7 5 3
+
+       8 9 6
+
+       Contoh matrix 4x4 sebelum dirotasi:
+       1 2 3 4
+
+       5 6 7 8
+
+       9 10 11 12
+
+       13 14 15 16
+
+       Contoh matrix 4x4 setelah dirotasi:
+       5 1 2 3
+
+       9 10 6 4
+
+       13 11 7 8
+
+       14 15 16 12
+
+    */
+    /*KAMUS LOKAL*/
+    int i, j, n, nloop;
+    boolean loop;
+    Matrix temp;
+
+    /*ALGORITMA*/
+    createMatrix(ROW_EFF(*m), COL_EFF(*m), &temp);
+    temp = *m;
+
+    if ((ROW_EFF(*m) % 2) == 0)
+    {
+        nloop = ROW_EFF(*m) / 2;
+    }
+    else
+    {
+        nloop = (ROW_EFF(*m) - 1) / 2;
+    }
+
+    for (n = 0; n < nloop; n++)
+    {
+        loop = true;
+        i = n;
+        j = n;
+        while (loop == true)
+        {
+            if (j < COL_EFF(*m) - (1 + n))
+            {
+                ELMT(temp, i, j + 1) = ELMT(*m, i, j);
+                ELMT(temp, j, i) = ELMT(*m, j + 1, i);
+                j++;
+            }
+            else if ((j == COL_EFF(*m) - (1 + n)) && (i < ROW_EFF(*m) - (1 + n)))
+            {
+                ELMT(temp, i + 1, j) = ELMT(*m, i, j);
+                ELMT(temp, j, i) = ELMT(*m, j, i + 1);
+                i++;
+            }
+            else if ((j == COL_EFF(*m) - (1 + n)) && (i == ROW_EFF(*m) - (1 + n)))
+            {
+                loop = false;
+            }
+        }
+    }
+    *m = temp;
+}
