@@ -7,7 +7,7 @@ int main()
 
     STARTWORD();
 
-    while (!EndWord)
+    while (!endWord)
     {
         if (longest < currentWord.Length)
         {

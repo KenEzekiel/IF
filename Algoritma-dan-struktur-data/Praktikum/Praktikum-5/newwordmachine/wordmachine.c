@@ -6,7 +6,7 @@
 #include "wordmachine.h"
 
 /* State Mesin Word */
-boolean EndWord;
+boolean endWord;
 Word currentWord;
 
 void IgnoreBlanks()
@@ -30,11 +30,11 @@ void STARTWORD()
     IgnoreBlanks();
     if (currentChar == MARK)
     {
-        EndWord = true;
+        endWord = true;
     }
     else
     {
-        EndWord = false;
+        endWord = false;
         CopyWord();
     }
 }
@@ -49,7 +49,7 @@ void ADVWORD()
     IgnoreBlanks();
     if (currentChar == MARK)
     {
-        EndWord = true;
+        endWord = true;
     }
     else
     {
