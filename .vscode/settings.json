@@ -3,6 +3,7 @@
         "math.h": "c",
         "corecrt_math.h": "c",
         "stdio.h": "c",
-        "matrix.h": "c"
+        "matrix.h": "c",
+        "prioqueuetime.h": "c"
     }
 }

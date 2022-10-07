@@ -55,7 +55,7 @@ int length(Queue q)
     }
     else
     {
-        if ((IDX_TAIL(q) - IDX_HEAD(q)) > 0)
+        if ((IDX_TAIL(q) - IDX_HEAD(q)) >= 0)
         {
             return IDX_TAIL(q) - IDX_HEAD(q) + 1;
         }
