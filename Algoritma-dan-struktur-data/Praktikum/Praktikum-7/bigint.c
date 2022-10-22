@@ -5,6 +5,34 @@
 #include <stdio.h>
 #include "stack.h"
 
+boolean IsEqual(Stack S1, Stack S2)
+{
+    Stack temp1, temp2;
+    int x1, x2;
+    boolean equal = true;
+    temp1 = S1;
+    temp2 = S2;
+
+    if (Top(temp1) != Top(temp2))
+    {
+        equal = false;
+    }
+    else
+    {
+        while (!IsEmpty(temp1) && equal)
+        {
+            Pop(&temp1, &x1);
+            Pop(&temp2, &x2);
+
+            if (x1 != x2)
+            {
+                equal = false;
+            }
+        }
+    }
+    return equal;
+}
+
 Stack reverse(Stack S)
 {
     Stack temp = S;
@@ -88,87 +116,94 @@ int main()
     }
 
     // Algoritma perhitungan S1 - S2
-    int x1, x2, x3, m;
-    int carry = 0;
-    Stack temp1, temp2;
-    boolean swap = false;
-    int sub;
-
-    if (isSmaller(Stack1, Stack2))
+    if (!IsEqual(Stack1, Stack2))
     {
-        temp = Stack1;
-        Stack1 = Stack2;
-        Stack2 = temp;
-        // printf("swapped\n");
-        swap = true;
-    }
-    int len1 = Top(Stack1) + 1;
-    int len2 = Top(Stack2) + 1;
+        int x1, x2, x3, m;
+        int carry = 0;
+        Stack temp1, temp2;
+        boolean swap = false;
+        int sub;
 
-    for (i = 0; i < len2; i++)
-    {
-        Pop(&Stack1, &x1);
-        Pop(&Stack2, &x2);
-        x3 = x1 - x2 - carry;
-
-        if (x3 < 0)
+        if (isSmaller(Stack1, Stack2))
         {
-            x3 += 10;
-            carry = 1;
+            temp = Stack1;
+            Stack1 = Stack2;
+            Stack2 = temp;
+            // printf("swapped\n");
+            swap = true;
         }
-        else
-        {
-            carry = 0;
-        }
-        // printf("push1 %d\n", x3);
-        Push(&Stack3, x3);
-    }
+        int len1 = Top(Stack1) + 1;
+        int len2 = Top(Stack2) + 1;
 
-    while (!IsEmpty(Stack1))
-    {
-        Pop(&Stack1, &x1);
-        // printf("x1 : %c\n", x1);
-        x3 = x1 - carry - 48;
-
-        if (x3 < 0)
+        for (i = 0; i < len2; i++)
         {
-            x3 += 10;
-            carry = 1;
-        }
-        else
-        {
-            carry = 0;
-        }
-        // printf("push2 %d\n", x3);
-        Push(&Stack3, x3);
-    }
+            Pop(&Stack1, &x1);
+            Pop(&Stack2, &x2);
+            x3 = x1 - x2 - carry;
 
-    temp1 = Stack3;
-    Pop(&temp1, &x3);
-    if (x3 != 0)
-    {
-        Push(&temp1, x3);
-    }
-    while (x3 == 0)
-    {
+            if (x3 < 0)
+            {
+                x3 += 10;
+                carry = 1;
+            }
+            else
+            {
+                carry = 0;
+            }
+            // printf("push1 %d\n", x3);
+            Push(&Stack3, x3);
+        }
+
+        while (!IsEmpty(Stack1))
+        {
+            Pop(&Stack1, &x1);
+            // printf("x1 : %c\n", x1);
+            x3 = x1 - carry - 48;
+
+            if (x3 < 0)
+            {
+                x3 += 10;
+                carry = 1;
+            }
+            else
+            {
+                carry = 0;
+            }
+            // printf("push2 %d\n", x3);
+            Push(&Stack3, x3);
+        }
+
+        temp1 = Stack3;
         Pop(&temp1, &x3);
         if (x3 != 0)
         {
             Push(&temp1, x3);
         }
-    }
-    Stack3 = temp1;
-    if (swap)
-    {
-        printf("-");
-    }
+        while (x3 == 0)
+        {
+            Pop(&temp1, &x3);
+            if (x3 != 0)
+            {
+                Push(&temp1, x3);
+            }
+        }
+        Stack3 = temp1;
+        if (swap)
+        {
+            printf("-");
+        }
 
-    while (!IsEmpty(Stack3))
-    {
-        Pop(&Stack3, &x1);
-        printf("%i", x1);
+        while (!IsEmpty(Stack3))
+        {
+            Pop(&Stack3, &x1);
+            printf("%i", x1);
+        }
+        printf("\n");
     }
-    printf("\n");
+    else
+    {
+        printf("0\n");
+    }
 
     return 0;
 }
