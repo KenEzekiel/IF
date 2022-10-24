@@ -43,7 +43,7 @@ int main()
     val = getElmt(N, 2);
     printf("idx 2 di N: %d\n", val);
     setElmt(&N, 1, 10);
-    displayList(L);
+    displayList(N);
     printf("6 ada di idx ke-%d\n", indexOf(N, 6));
 
     return 0;

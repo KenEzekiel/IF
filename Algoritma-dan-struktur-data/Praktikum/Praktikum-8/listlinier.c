@@ -83,14 +83,15 @@ void setElmt(List *l, int idx, ElType val)
     /* F.S. Mengubah elemen l pada indeks ke-idx menjadi val */
     // KAMUS LOKAL
     int i = 0;
+    Address p = *l;
 
     // ALGORITMA
     while (i < idx)
     {
-        *l = NEXT(*l);
+        p = NEXT(p);
         i++;
     }
-    INFO(*l) = val;
+    INFO(p) = val;
 }
 
 int indexOf(List l, ElType val)
@@ -114,8 +115,8 @@ int indexOf(List l, ElType val)
         else
         {
             p = NEXT(p);
+            i++;
         }
-        i++;
     }
 
     if (found)
@@ -143,7 +144,6 @@ void insertFirst(List *l, ElType val)
     p = newNode(val);
     if (p == NULL)
     {
-        return;
     }
     else
     {
@@ -166,15 +166,21 @@ void insertLast(List *l, ElType val)
     p = newNode(val);
     if (p == NULL)
     {
-        return;
     }
     else
     {
-        while (NEXT(q) != NULL)
+        if (isEmpty(*l))
         {
-            q = NEXT(q);
+            insertFirst(l, val);
         }
-        NEXT(q) = p;
+        else
+        {
+            while (NEXT(q) != NULL)
+            {
+                q = NEXT(q);
+            }
+            NEXT(q) = p;
+        }
     }
 }
 
@@ -193,7 +199,6 @@ void insertAt(List *l, ElType val, int idx)
     p = newNode(val);
     if (p == NULL)
     {
-        return;
     }
     else
     {
@@ -221,20 +226,19 @@ void deleteFirst(List *l, ElType *val)
     /* F.S. Elemen pertama list dihapus: nilai info disimpan pada x */
     /*      dan alamat elemen pertama di-dealokasi */
     // KAMUS LOKAL
-    Address p;
+    Address p = *l;
 
     // ALGORITMA
-    if (NEXT(*l) == NULL)
+    *val = INFO(p);
+    if (NEXT(p) == NULL)
     {
-        *val = INFO(*l);
+        *l = NULL;
         free(*l);
         CreateList(l);
     }
     else
     {
-        *val = INFO(*l);
-        p = *l;
-        *l = NEXT(*l);
+        *l = NEXT(p);
         free(p);
     }
 }
@@ -249,19 +253,26 @@ void deleteLast(List *l, ElType *val)
     // ALGORITMA
     if (NEXT(*l) == NULL)
     {
-        *val = INFO(*l);
-        free(*l);
+        deleteFirst(l, val);
     }
     else
     {
         p = *l;
+        q = NULL;
         while (NEXT(p) != NULL)
         {
             q = p;
             p = NEXT(p);
         }
+        if (q == NULL)
+        {
+            *l = NULL;
+        }
+        else
+        {
+            NEXT(q) = NULL;
+        }
         *val = INFO(p);
-        NEXT(q) = NULL;
         free(p);
     }
 }
@@ -278,8 +289,7 @@ void deleteAt(List *l, int idx, ElType *val)
     // ALGORITMA
     if (NEXT(*l) == NULL)
     {
-        *val = INFO(*l);
-        free(*l);
+        deleteFirst(l, val);
     }
     else
     {
@@ -298,6 +308,7 @@ void deleteAt(List *l, int idx, ElType *val)
             }
             *val = INFO(p);
             NEXT(q) = NEXT(p);
+            NEXT(p) = NULL;
             free(p);
         }
     }
@@ -330,7 +341,7 @@ void displayList(List l)
         printf("%d", INFO(p));
     }
 
-    printf("]\n");
+    printf("]");
 }
 
 int length(List l)
@@ -348,7 +359,7 @@ int length(List l)
     }
     else
     {
-        count++;
+        count = 1;
         while (NEXT(p) != NULL)
         {
             p = NEXT(p);
@@ -369,6 +380,7 @@ List concat(List l1, List l2)
     // KAMUS LOKAL
     Address p;
     List l3;
+    ElType val;
 
     // ALGORITMA
     /*CreateList(&l3);
@@ -403,5 +415,6 @@ List concat(List l1, List l2)
         insertLast(&l3, INFO(p));
         p = NEXT(p);
     }
+
     return l3;
 }
