@@ -33,3 +33,6 @@ List of Data Structures :
 - Tree
 - Graph
 
+### Organisasi dan Arsitektur Komputer
+
+A Course for understanding the Basic Organization and Architecture of a Computer, featuring Assembly, bitwise operations, etc.
