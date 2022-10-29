@@ -419,180 +419,206 @@ List concat(List l1, List l2)
     return l3;
 }
 
-//Pencarian sebuah elemen
+// Pencarian sebuah elemen
 
-boolean fSearch (List l, Address p) {
-/* Mencari apakah ada elemen list yang beralamat P */
-/* Mengirimkan true jika ada, false jika tidak ada */
-	// KAMUS LOKAL
-	Address q = l;
-	boolean found = false;
-	// ALGORITMA
-	while ((q != NULL) && (!found)) {\
-		if (INFO(q) == INFO(p)) {
-			found = true;
-		}
-		q = NEXT(q);
-	}
-	return found;
+boolean fSearch(List l, Address p)
+{
+    /* Mencari apakah ada elemen list yang beralamat P */
+    /* Mengirimkan true jika ada, false jika tidak ada */
+    // KAMUS LOKAL
+    Address q = l;
+    boolean found = false;
+    // ALGORITMA
+    while ((q != NULL) && (!found))
+    {
+        if (INFO(q) == INFO(p))
+        {
+            found = true;
+        }
+        q = NEXT(q);
+    }
+    return found;
 }
 
-Address searchPrec (List l, ElType x) {
-/* Mengirimkan address elemen sebelum elemen yang nilainya=X */
-/* Mencari apakah ada elemen list dengan Info(P)=X */
-/* Jika ada, mengirimkan address Prec, dengan Next(Prec)=P dan Info(P)=X. */
-/* Jika tidak ada, mengirimkan Nil */
-/* Jika P adalah elemen pertama, maka Prec=Nil */
-/* Search dengan spesifikasi seperti ini menghindari */
-/* traversal ulang jika setelah Search akan dilakukan operasi lain */
-	// KAMUS LOKAL
-	int idx = indexOf(l,x);
-	Address p = l;
-	Address q;
-	int i;
-	
-	// ALGORITMA
-	if (idx == IDX_UNDEF) {
-		return NULL;
-	} else {
-		if (idx == 0) {
-			return NULL;
-		} else {
-			for (i = 0; i < idx; i++) {
-				p = NEXT(p);
-			}
-			return p; 
-		}
-		
-	}
-	
+Address searchPrec(List l, ElType x)
+{
+    /* Mengirimkan address elemen sebelum elemen yang nilainya=X */
+    /* Mencari apakah ada elemen list dengan Info(P)=X */
+    /* Jika ada, mengirimkan address Prec, dengan Next(Prec)=P dan Info(P)=X. */
+    /* Jika tidak ada, mengirimkan Nil */
+    /* Jika P adalah elemen pertama, maka Prec=Nil */
+    /* Search dengan spesifikasi seperti ini menghindari */
+    /* traversal ulang jika setelah Search akan dilakukan operasi lain */
+    // KAMUS LOKAL
+    int idx = indexOf(l, x);
+    Address p = l;
+    Address q;
+    int i;
+
+    // ALGORITMA
+    if (idx == IDX_UNDEF)
+    {
+        return NULL;
+    }
+    else
+    {
+        if (idx == 0)
+        {
+            return NULL;
+        }
+        else
+        {
+            for (i = 0; i < idx; i++)
+            {
+                p = NEXT(p);
+            }
+            return p;
+        }
+    }
 }
 
+// Pencarian Nilai Ekstrim dan Rata-Rata (prekondisi: list tidak kosong)
 
-//Pencarian Nilai Ekstrim dan Rata-Rata (prekondisi: list tidak kosong)
-
-ElType max (List l) {
-/* Mengirimkan nilai info(P) yang maksimum */
-	// KAMUS LOKAL
-	ElType max = INFO(l);
-	Address p = l;
-	// ALGORITMA
-	while (p != NULL) {
-		if (INFO(p) > max) {
-			max = INFO(p);
-		}
-		p = NEXT(p);
-	}
-	return max;
-	
+ElType max(List l)
+{
+    /* Mengirimkan nilai info(P) yang maksimum */
+    // KAMUS LOKAL
+    ElType max = INFO(l);
+    Address p = l;
+    // ALGORITMA
+    while (p != NULL)
+    {
+        if (INFO(p) > max)
+        {
+            max = INFO(p);
+        }
+        p = NEXT(p);
+    }
+    return max;
 }
 
-Address adrMax (List l) {
-/* Mengirimkan address P, dengan info(P) yang bernilai maksimum */
-	// KAMUS LOKAL
-	ElType max = INFO(l);
-	Address p = l;
-	Address q;
-	// ALGORITMA
-	while (p != NULL) {
-		if (INFO(p) > max) {
-			q = p;
-			max = INFO(p);
-		}
-		p = NEXT(p);
-	}
-	return q;
-	
+Address adrMax(List l)
+{
+    /* Mengirimkan address P, dengan info(P) yang bernilai maksimum */
+    // KAMUS LOKAL
+    ElType max = INFO(l);
+    Address p = l;
+    Address q;
+    // ALGORITMA
+    while (p != NULL)
+    {
+        if (INFO(p) > max)
+        {
+            q = p;
+            max = INFO(p);
+        }
+        p = NEXT(p);
+    }
+    return q;
 }
 
-ElType min (List l) {
-/* Mengirimkan nilai info(P) yang minimum */
-	// KAMUS LOKAL
-	ElType min = INFO(l);
-	Address p = l;
-	// ALGORITMA
-	while (p != NULL) {
-		if (INFO(p) < min) {
-			min = INFO(p);
-		}
-		p = NEXT(p);
-	}
-	return min;
-	
+ElType min(List l)
+{
+    /* Mengirimkan nilai info(P) yang minimum */
+    // KAMUS LOKAL
+    ElType min = INFO(l);
+    Address p = l;
+    // ALGORITMA
+    while (p != NULL)
+    {
+        if (INFO(p) < min)
+        {
+            min = INFO(p);
+        }
+        p = NEXT(p);
+    }
+    return min;
 }
 
-Address adrMin (List l) {
-/* Mengirimkan address P, dengan info(P) yang bernilai minimum */
-	// KAMUS LOKAL
-	ElType min = INFO(l);
-	Address p = l;
-	Address q;
-	// ALGORITMA
-	while (p != NULL) {
-		if (INFO(p) < min) {
-			q = p;
-			min = INFO(p);
-		}
-		p = NEXT(p);
-	}
-	return q;
-	
+Address adrMin(List l)
+{
+    /* Mengirimkan address P, dengan info(P) yang bernilai minimum */
+    // KAMUS LOKAL
+    ElType min = INFO(l);
+    Address p = l;
+    Address q;
+    // ALGORITMA
+    while (p != NULL)
+    {
+        if (INFO(p) < min)
+        {
+            q = p;
+            min = INFO(p);
+        }
+        p = NEXT(p);
+    }
+    return q;
 }
 
+// Proses terhadap semua elemen list
 
-//Proses terhadap semua elemen list
-
-void deleteAll (List *l) {
-	// KAMUS LOKAL
-	Address p = *l;
-	ElType val;
-	// ALGORITMA
-	while (!isEmpty(*l)) {
-		deleteLast(l, &val);
-	}
+void deleteAll(List *l)
+{
+    // KAMUS LOKAL
+    Address p = *l;
+    ElType val;
+    // ALGORITMA
+    while (!isEmpty(*l))
+    {
+        deleteLast(l, &val);
+    }
 }
 
-void copyList (List *l1, List *l2) {
-	// KAMUS LOKAL
-	Address p = *l1;
-	// ALGORITMA
-	*l2 = *l1;
+void copyList(List *l1, List *l2)
+{
+    // KAMUS LOKAL
+    Address p = *l1;
+    // ALGORITMA
+    *l2 = *l1;
 }
 
-void inverseList (List *l) {
-	// KAMUS LOKAL
-	Address p = *l;
-	List l1;
-	
-	// ALGORITMA
-	CreateList(&l1);
-	while (p != NULL) {
-		insertFirst(&l1, INFO(p));
-		p = NEXT(p);
-	}
-	*l = l1;
+void inverseList(List *l)
+{
+    // KAMUS LOKAL
+    Address prev = NULL;
+    Address cur = *l;
+    Address next = NULL;
+    List l1;
+
+    // ALGORITMA
+    while (cur != NULL)
+    {
+        next = NEXT(cur);
+        NEXT(cur) = prev;
+        prev = cur;
+        cur = next;
+    }
+    *l = prev;
 }
 
-void splitList (List *l1, List *l2, List l) {
-	// KAMUS LOKAL
-	int split;
-	int len = length(l);
-	int i;
-	Address p = l;
-	// ALGORITMA
-	
-	if (len % 2 == 0) {
-		split = len / 2;
-	} else {
-		split = len / 2;
-	}
-	
-	for (i = 0; i < len; i++) {
-		if (i <= split) {
-			insertLast(l1, INFO(p));
-		} else {
-			insertLast(l2, INFO(p));
-		}
-		p = NEXT(p);
-	}
+void splitList(List *l1, List *l2, List l)
+{
+    // KAMUS LOKAL
+    int split;
+    int len = length(l);
+    int i = 1;
+    Address p = l;
+    // ALGORITMA
+    CreateList(l1);
+    CreateList(l2);
+    split = len / 2;
+
+    while (p != NULL)
+    {
+        if (i <= split)
+        {
+            insertLast(l1, INFO(p));
+        }
+        else
+        {
+            insertLast(l2, INFO(p));
+        }
+        p = NEXT(p);
+        i++;
+    }
 }
