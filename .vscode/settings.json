@@ -4,6 +4,7 @@
         "corecrt_math.h": "c",
         "stdio.h": "c",
         "matrix.h": "c",
-        "prioqueuetime.h": "c"
+        "prioqueuetime.h": "c",
+        "list_circular.h": "c"
     }
 }
