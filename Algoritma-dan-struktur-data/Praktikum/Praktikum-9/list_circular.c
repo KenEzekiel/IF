@@ -208,6 +208,7 @@ void deleteFirst(List *l, ElType *val)
     /*      Alamat elemen pertama list lama di-dealokasi */
     // KAMUS LOKAL
     Address p = FIRST(*l);
+    Address q = FIRST(*l);
     // ALGORITMA
     *val = INFO(p);
     if (NEXT(FIRST(*l)) == FIRST(*l))
@@ -216,8 +217,13 @@ void deleteFirst(List *l, ElType *val)
     }
     else
     {
-
+        while (NEXT(q) != FIRST(*l))
+        {
+            q = NEXT(q);
+        }
+        // q adalah last element
         FIRST(*l) = NEXT(p);
+        NEXT(q) = FIRST(*l);
         deallocate(p);
     }
 }

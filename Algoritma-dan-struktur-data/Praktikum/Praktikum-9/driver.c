@@ -11,6 +11,7 @@ int main()
     printf("List kosong? %d\n", isEmpty(L));
     insertFirst(&L, 1);
     insertLast(&L, 3);
+    insertFirst(&L, 2);
     displayList(L);
 
     // printf("panjang list : %d\n", length(L));
