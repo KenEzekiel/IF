@@ -1,0 +1,388 @@
+
+Bagian 1
+
+a :
+Query: suami(vito, Y).
+
+Y = power 
+
+b : 
+Query: kakak(elonMusk, Y).
+
+Y = patrick
+
+c :
+Query: anak(Cucu, _Y), cucu(_Y, gojo).
+
+Cucu = anya 
+
+d :
+Query : keponakan(wesly, X), keponakan(wesly, _Y), X \= _Y, \+ kakak(_, X), \+ kakak(_, _Y), usia(X, _A), usia(_Y, _B), _A > _B.
+
+X = vanRossum 
+
+e : 
+Query : menikah(Ipar, Pasangan), menikah(aqua, X), saudara(X, Ipar).
+
+Ipar = power
+Pasangan = vito
+X = ave
+
+f :
+Query : cucu(X, khelli), \+ (cucu(_Y, khelli), X \== _Y, usia(X, _A), usia(_Y, _B), _A > _B).
+
+X = patrick
+
+g : 
+Query: anak(X, _Y), wanita(_Y), kakak(_Z, X), anaksulung(_Z), usia(X, _A), \+ (kakak(_Z, _W), usia(_W, _B),_B > _A).
+
+X = bambang ? a
+
+X = power
+
+X = patrick
+
+h : 
+Query : anak(_X, Orangtua), anak(_Y, Orangtua), _X \== _Y, anaksulung(_X), anakbungsu(_Y), \+ (anak(_Z, Orangtua), \+ anaksulung(_Z), \+ anakbungsu(_Z)).
+
+Orangtua = gojo ? a
+
+Orangtua = lovelace
+
+Orangtua = ave
+
+Orangtua = aqua
+
+i :
+Query : menantu(X, _Y).
+
+X = vito ? a
+
+X = vito
+
+X = power
+
+X = power
+
+X = ave
+
+X = ave
+
+X = aqua
+
+X = aqua
+
+X = wulandari
+
+X = wulandari
+
+j :
+Query : wanita(X), anak(_A, X), anak(_B, X), _A \== _B.
+
+X = indah ? a
+
+X = indah
+
+X = indah
+
+X = indah
+
+X = indah
+
+X = indah
+
+X = lovelace
+
+X = lovelace
+
+X = aqua
+
+X = aqua
+
+k : 
+Query : wanita(Target), anak(X, Target), usia(X, Usia1), usia(Target, Usia2), L is (Usia2 - Usia1), L < 21.
+
+L = 20
+Target = wulandari
+Usia1 = 4
+Usia2 = 24
+X = anya
+
+l : 
+Query : keturunan(Target, gede), usia(Target, Usia), Usia >= 25.
+
+
+Target = vanRossum
+Usia = 65 ? a
+
+Target = bambang
+Usia = 60
+
+Target = vito
+Usia = 56
+
+Target = wesly
+Usia = 26
+
+/* Bagian 2 */
+
+1
+| ?- combination(1, 1, X).
+
+X = 1.0 ? 
+
+yes
+| ?- combination(5, 3, X).
+
+X = 10.0 ? 
+
+yes
+| ?- combination(10, 4, X).
+
+X = 210.0 ? 
+
+yes
+
+2
+| ?- change(X, 15).
+
+X = 3 ? 
+
+yes
+| ?- change(X, 14).
+
+X = 4 ? 
+
+yes
+| ?- change(X, 17).
+
+X = 4 ? 
+
+yes
+| ?- change(X, 3).
+
+X = 2 ? 
+
+yes
+| ?- change(X, 1).
+
+X = 1 ? 
+
+yes
+| ?- change(X, 2).
+
+X = 1 ? 
+
+yes
+| ?- change(X, 5).
+
+X = 1 ? 
+
+yes
+
+3
+| ?- fpb(20, 0, X).
+
+X = 20 ? 
+
+yes
+| ?- fpb(20, 5, X).
+
+X = 5 ? 
+
+yes
+| ?- fpb(17, 5, X).
+
+X = 1 ? 
+
+yes
+| ?- fpb(5, 50, X).
+
+X = 5 ? 
+
+yes
+
+4
+| ?- mod(5, 2, X).
+
+X = 1 ? 
+
+yes
+| ?- mod(4, 2, X).
+
+X = 0 ? 
+
+(16 ms) yes
+| ?- mod(2, 20, X).
+
+X = 2 ? 
+
+yes
+| ?- mod(0, 2, X).
+
+X = 0 ? 
+
+yes
+| ?- mod(5, 3, X).
+
+X = 2 ? 
+
+yes
+
+5
+| ?- deret(1, Y).
+
+Y = 1 ? 
+
+yes
+| ?- deret(2, Y).
+
+Y = 2 ? 
+
+yes
+| ?- deret(3, Y).
+
+Y = 4 ? 
+
+(16 ms) yes
+| ?- deret(4, Y).
+
+Y = 5 ? 
+
+yes
+| ?- deret(5, Y).
+
+Y = 10 ? 
+
+yes
+| ?- deret(6, Y).
+
+Y = 11 ? 
+
+yes
+| ?- deret(7, Y).
+
+Y = 22 ? 
+
+yes
+
+/* Bagian 3 */
+
+---A---
+
+1
+| ?- min([1], X).
+
+X = 1 ? 
+
+yes
+| ?- min([1, 2, -10, 5, 10, 11], X).
+
+X = -10 ? 
+
+yes
+
+2
+| ?- max([1, 2, -10, 5, 10, 11], X).
+
+X = 11 ? 
+
+yes
+| ?- max([1], X).
+
+X = 1 ? 
+
+yes
+
+3
+| ?- range([1,2,3,4,5,-1,-10,100,20,30], X).
+
+X = 110 ? 
+
+yes
+| ?- range([1,2,3,4,5,-1,-10,100,20,30, 1000], X).
+
+X = 1010 ? 
+
+yes
+| ?- range([1,2,3,4,5,-1,-10,100,20,30, 1000, -1000], X).
+
+X = 2000 ? 
+
+yes
+| ?- range([1], X).
+
+X = 0 ? 
+
+yes
+
+4
+| ?- count([1,2,3,4,5,-1,-10,100,20,30, 1000, -1000], X).
+
+X = 12 ? 
+
+yes
+| ?- count([1], X).
+
+X = 1 ? 
+
+yes
+
+5
+| ?- sum([1,2,3,4,5,-1,-10,100,20,30, 1000, -1000], X).
+
+X = 154 ? 
+
+yes
+| ?- sum([1], X).
+
+X = 1 ? 
+
+yes
+
+---B---
+
+1
+| ?- getIndex([1,2,5,-2,1,-4,-7], -2, X).
+
+X = 4 ? 
+
+yes
+| ?- getIndex([1,2,5,-2,1,-4,-7], -7, X).
+
+X = 7 ? 
+
+yes
+| ?- getIndex([1,2,5,-2,1,-4,-7], 0, X).
+
+no
+| ?- getIndex([1,2,5,-2,1,-4,-7, 1000, 10, 12], 12, X).
+
+X = 10 ? 
+
+yes
+getIndex([1], 1, X).
+
+X = 1 ? 
+
+yes
+
+2
+
+| ?- swap([1,2,3,4,5], 1, 1, X).
+
+X = [1,2,3,4,5] ? 
+
+yes
+| ?- swap([1,2,3,4,5], 4, 2, X).
+
+X = [1,4,3,2,5] ? 
+
+(15 ms) yes
+| ?- getIndex([1,2,3,4,5,10,12,100,200], 12, Y), swap([1,2,3,4,5, 10, 12, 100, 200], Y, 2, X).
+
+X = [1,12,3,4,5,10,2,100,200]
+Y = 7 ? 
+
+yes
+
