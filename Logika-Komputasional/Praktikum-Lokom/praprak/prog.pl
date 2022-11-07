@@ -336,7 +336,7 @@ multiply(Y) :-
 divide(Y) :-
     start(true),
     var(_, X),
-    A is X // Y,
+    A is X / Y,
     setValue(A),
     !.
 
