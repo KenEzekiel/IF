@@ -386,3 +386,53 @@ Y = 7 ?
 
 yes
 
+/* BONUS */
+| ?- startCalculator.
+Selamat Datang di Kalkulator Prolog!
+
+Currently saved value is 0
+
+yes
+| ?- add(5).
+
+Old saved value is 0
+New saved value is 5
+
+yes
+| ?- subtract(3).
+
+Old saved value is 5
+New saved value is 2
+
+yes
+| ?- multiply(2).
+
+Old saved value is 2
+New saved value is 4
+
+yes
+| ?- divide(2).
+
+Old saved value is 4
+New saved value is 2
+
+(16 ms) yes
+| ?- getValue.
+
+Currently Saved Value is 2 
+
+true ? 
+
+yes
+| ?- clearCalculator.
+
+Old saved value is 2
+New saved value is 0
+
+true ? 
+
+(16 ms) yes
+| ?- exitCalculator.
+Terima kasih telah menggunakan kalkulator Prolog!
+
+yes

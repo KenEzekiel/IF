@@ -292,6 +292,7 @@ splitList(List, ListGanjil, ListGenap) :-
     splitListGanjil(List, ListGanjil, ListGenap).
 
 /* BONUS */
+
 :-dynamic(var/2).
 :-dynamic(start/1).
 
@@ -335,7 +336,7 @@ multiply(Y) :-
 divide(Y) :-
     start(true),
     var(_, X),
-    A is X / Y,
+    A is X // Y,
     setValue(A),
     !.
 
