@@ -122,10 +122,18 @@ void DisplayQueue(Queue q)
 void enqueue(Queue *q, ElType x)
 {
     // KAMUS LOKAL
-    Address p = ADDR_TAIL(*q);
     Address new = newNode(x);
     // ALGORITMA
-    NEXT(p) = new;
+    if (isEmpty(*q))
+    {
+        ADDR_HEAD(*q) = new;
+        ADDR_TAIL(*q) = new;
+    }
+    else
+    {
+        NEXT(ADDR_TAIL(*q)) = new;
+        ADDR_TAIL(*q) = NEXT(ADDR_TAIL(*q));
+    }
 }
 /* Proses: Mengalokasi x dan menambahkan x pada bagian Tail dari q
            jika alokasi berhasil; jika alokasi gagal q tetap */
@@ -141,6 +149,11 @@ void dequeue(Queue *q, ElType *x)
     // ALGORITMA
     *x = HEAD(*q);
     ADDR_HEAD(*q) = new;
+    if (ADDR_HEAD(*q) == ADDR_TAIL(*q))
+    {
+        ADDR_TAIL(*q) = NULL;
+    }
+
     free(p);
 }
 /* Proses: Menghapus x pada bagian HEAD dari q dan mendealokasi elemen HEAD */

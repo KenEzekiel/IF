@@ -76,7 +76,7 @@ int length(Stack s)
 
 void CreateStack(Stack *s)
 {
-    TOP(*s) = NULL;
+    ADDR_TOP(*s) = NULL;
 }
 /* I.S. sembarang */
 /* F.S. Membuat sebuah stack s yang kosong */
@@ -119,8 +119,15 @@ void push(Stack *s, ElType x)
     // KAMUS LOKAL
     Address p = newNode(x);
     // ALGORITMA
-    NEXT(p) = ADDR_TOP(*s);
-    ADDR_TOP(*s) = p;
+    if (isEmpty(*s))
+    {
+        ADDR_TOP(*s) = p;
+    }
+    else
+    {
+        NEXT(p) = ADDR_TOP(*s);
+        ADDR_TOP(*s) = p;
+    }
 }
 /* Menambahkan x sebagai elemen Stack s */
 /* I.S. s mungkin kosong, x terdefinisi */
@@ -134,7 +141,15 @@ void pop(Stack *s, ElType *x)
     Address p = ADDR_TOP(*s);
     // ALGORITMA
     *x = TOP(*s);
-    ADDR_TOP(*s) = NEXT(p);
+    if (NEXT(p) == NULL)
+    {
+        ADDR_TOP(*s) = NULL;
+    }
+    else
+    {
+        ADDR_TOP(*s) = NEXT(p);
+    }
+
     free(p);
 }
 /* Menghapus Top dari Stack s */

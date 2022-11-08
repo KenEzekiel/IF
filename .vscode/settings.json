@@ -6,6 +6,7 @@
         "matrix.h": "c",
         "prioqueuetime.h": "c",
         "list_circular.h": "c",
-        "boolean.h": "c"
+        "boolean.h": "c",
+        "queuelinked.h": "c"
     }
 }
