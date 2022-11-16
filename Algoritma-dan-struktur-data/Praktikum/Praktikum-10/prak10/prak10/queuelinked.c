@@ -129,16 +129,10 @@ void enqueue(Queue *q, ElType x)
         ADDR_HEAD(*q) = new;
         ADDR_TAIL(*q) = new;
     }
-    else if (NEXT(ADDR_HEAD(*q)) == NULL)
-    {
-        printf("is one element\n");
-        NEXT(ADDR_HEAD(*q)) = new;
-        ADDR_TAIL(*q) = new;
-    }
     else
     {
         NEXT(ADDR_TAIL(*q)) = new;
-        ADDR_TAIL(*q) = new;
+        ADDR_TAIL(*q) = NEXT(ADDR_TAIL(*q));
     }
 }
 /* Proses: Mengalokasi x dan menambahkan x pada bagian Tail dari q
