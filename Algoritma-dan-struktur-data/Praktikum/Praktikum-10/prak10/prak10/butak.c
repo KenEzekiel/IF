@@ -29,22 +29,15 @@ boolean isElHomogen(Queue q)
 	ElType val = HEAD(q);
 	Address p = ADDR_HEAD(q);
 	// ALGORITMA
-	if (NEXT(p) == NULL)
+	while (p != NULL)
 	{
-		return true;
-	}
-	else
-	{
-		while (NEXT(p) != NULL && homogen)
+		if (INFO(p) != val)
 		{
-			p = NEXT(p);
-			if (val != INFO(p))
-			{
-				homogen = false;
-			}
+			return false;
 		}
-		return homogen;
+		p = NEXT(p);
 	}
+	return true;
 }
 
 int main()
@@ -98,7 +91,7 @@ int main()
 		ADV();
 	}
 
-	while (condition)
+	while (!isEmpty(qmakanan) && !(isElHomogen(qpref) && HEAD(qpref) != HEAD(qmakanan)))
 	{
 		// dequeue(&qpref, &mhs);
 		// dequeue(&qno, &tempno);
@@ -131,31 +124,8 @@ int main()
 			dequeue(&qpref, &mhs);
 			dequeue(&qno, &tempno);
 		}
-		// printf("\nqpref qmakanan : ");
-		// DisplayQueue(qpref);
-		// DisplayQueue(qmakanan);
-		// printf("\n");
-		// printf("is qpref empty? %d\n", isEmpty(qpref));
-
-		if (isEmpty(qpref))
-		{
-			break;
-		}
-		if (HEAD(qpref) == 1 && isElHomogen(qpref))
-		{
-			if (HEAD(qmakanan) == 0)
-			{
-				condition = false;
-			}
-		}
-		else if (HEAD(qpref) == 0 && isElHomogen(qpref))
-		{
-			if (HEAD(qmakanan) == 1)
-			{
-				condition = false;
-			}
-		}
 	}
+
 	if (isEmpty(qpref))
 	{
 		printf("0\n");

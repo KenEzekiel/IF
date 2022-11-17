@@ -126,19 +126,13 @@ void enqueue(Queue *q, ElType x)
     // ALGORITMA
     if (isEmpty(*q))
     {
-        if (new != NULL)
-        {
-            ADDR_HEAD(*q) = new;
-            ADDR_TAIL(*q) = new;
-        }
+        ADDR_HEAD(*q) = new;
+        ADDR_TAIL(*q) = new;
     }
     else
     {
-        if (new != NULL)
-        {
-            NEXT(ADDR_TAIL(*q)) = new;
-            ADDR_TAIL(*q) = new;
-        }
+        NEXT(ADDR_TAIL(*q)) = new;
+        ADDR_TAIL(*q) = NEXT(ADDR_TAIL(*q));
     }
 }
 /* Proses: Mengalokasi x dan menambahkan x pada bagian Tail dari q
@@ -157,10 +151,9 @@ void dequeue(Queue *q, ElType *x)
     ADDR_HEAD(*q) = new;
     if (ADDR_HEAD(*q) == ADDR_TAIL(*q))
     {
-        ADDR_HEAD(*q) = NULL;
         ADDR_TAIL(*q) = NULL;
     }
-    NEXT(p) = NULL;
+
     free(p);
 }
 /* Proses: Menghapus x pada bagian HEAD dari q dan mendealokasi elemen HEAD */

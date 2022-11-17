@@ -35,13 +35,13 @@ int main()
 				{
 					pop(&S, &val);
 				}
-				DisplayStack(S);
-				printf("\n");
 			}
 			else
 			{
 				tidakvalid = true;
 			}
+			DisplayStack(S);
+			printf("\n");
 		}
 		if (currentChar == '(')
 		{
@@ -58,13 +58,13 @@ int main()
 				{
 					pop(&S, &val);
 				}
-				DisplayStack(S);
-				printf("\n");
 			}
 			else
 			{
 				tidakvalid = true;
 			}
+			DisplayStack(S);
+			printf("\n");
 		}
 		if (currentChar == '{')
 		{
@@ -81,13 +81,13 @@ int main()
 				{
 					pop(&S, &val);
 				}
-				DisplayStack(S);
-				printf("\n");
 			}
 			else
 			{
 				tidakvalid = true;
 			}
+			DisplayStack(S);
+			printf("\n");
 		}
 		if (currentChar == '<')
 		{
@@ -104,34 +104,36 @@ int main()
 				{
 					pop(&S, &val);
 				}
-				DisplayStack(S);
-				printf("\n");
 			}
 			else
 			{
 				tidakvalid = true;
 			}
+			DisplayStack(S);
+			printf("\n");
 		}
 		if (currentChar == '|')
 		{
 			if (!isEmpty(S) && TOP(S) == 2)
 			{
 				pop(&S, &val);
-				DisplayStack(S);
-				printf("\n");
 			}
 			else
 			{
 				push(&S, 2);
-				DisplayStack(S);
-				printf("\n");
 				clurus++;
 			}
+			DisplayStack(S);
+			printf("\n");
 		}
 
 		if (length(S) > maxlength)
 		{
 			maxlength = length(S);
+		}
+		else
+		{
+			maxlength = maxlength;
 		}
 
 		ADV();
