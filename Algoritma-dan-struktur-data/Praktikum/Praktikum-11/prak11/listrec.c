@@ -192,60 +192,78 @@ void displayList(List l)
  */
 /* Jika list kosong, tidak menuliskan apa-apa  */
 
-
 /*** Pencarian nilai ekstrim ***/
 /* Prekondisi untuk Max/Min/Sum/Average : List tidak kosong */
-ElType maxList (List l) {
-    if(isOneElmt(l)) {
+ElType maxList(List l)
+{
+    if (isOneElmt(l))
+    {
         return head(l);
-    } else {
+    }
+    else
+    {
         int var = maxList(tail(l));
-        if (head(l) > var) {
+        if (head(l) > var)
+        {
             return head(l);
-        } else {
+        }
+        else
+        {
             return var;
         }
     }
 }
 /* Mengirimkan nilai INFO(p) yang maksimum */
 
-ElType minList (List l) {
-    if(isOneElmt(l)) {
+ElType minList(List l)
+{
+    if (isOneElmt(l))
+    {
         return head(l);
-    } else {
+    }
+    else
+    {
         int var = maxList(tail(l));
-        if (head(l) < var) {
+        if (head(l) < var)
+        {
             return head(l);
-        } else {
+        }
+        else
+        {
             return var;
         }
     }
 }
 /* Mengirimkan nilai INFO(p) yang minimum */
 
-ElType sumList (List l) {
-    if(isOneElmt(l)) {
+ElType sumList(List l)
+{
+    if (isOneElmt(l))
+    {
         return head(l);
-    } else {
+    }
+    else
+    {
         return head(l) + sumList(tail(l));
     }
 }
 /* Mengirimkan total jumlah elemen List l */
 
-float averageList (List l) {
-    if(isOneElmt(l)) {
-        return head(l);
-    } else {
-        return (head(l) + averageList(tail(l))) / 2;
-    }
+float averageList(List l)
+{
+    return sumList(l) / length(l);
 }
 /* Mengirimkan nilai rata-rata elemen list l */
 
 /*** Operasi-Operasi Lain ***/
-List inverseList (List l) {
-    if (isEmpty(l)) {
+List inverseList(List l)
+{
+    if (isEmpty(l))
+    {
         return l;
-    } else {
+    }
+    else
+    {
         return konsb(inverseList(tail(l)), head(l));
     }
 }
@@ -253,12 +271,16 @@ List inverseList (List l) {
 Semua elemen list baru harus dialokasi */
 /* Jika alokasi gagal, hasilnya list kosong */
 
-void splitPosNeg (List l, List *l1, List *l2) {
-    if (isEmpty(l)) {
+void splitPosNeg(List l, List *l1, List *l2)
+{
+    if (isEmpty(l))
+    {
         // BASIS
         *l1 = NULL;
         *l2 = NULL;
-    } else {
+    }
+    else
+    {
         // REKURENS
         // if (head(l) >= 0) {
         //     *l1 = konsb(*l1, head(l));
@@ -267,35 +289,43 @@ void splitPosNeg (List l, List *l1, List *l2) {
         // }
         // splitPosNeg(tail(l), l1, l2);
         splitPosNeg(tail(l), l1, l2);
-        if (head(l) >= 0) {
+        if (head(l) >= 0)
+        {
             *l1 = konso(*l1, head(l));
-        } else {
+        }
+        else
+        {
             *l2 = konso(*l2, head(l));
         }
-        
     }
 }
 /* I.S. l mungkin kosong */
-/* F.S. Berdasarkan l, dibentuk dua buah list l1 dan l2 */ 
+/* F.S. Berdasarkan l, dibentuk dua buah list l1 dan l2 */
 /* l1 berisi semua elemen l yang positif atau 0, sedangkan l2 berisi
 semua elemen l yang negatif; semua dengan urutan yang sama seperti di l */
 /* l tidak berubah: Semua elemen l1 dan l2 harus dialokasi */
 /* Jika l kosong, maka l1 dan l2 kosong */
 
-void splitOnX (List l, ElType x, List *l1, List *l2) {
-    if (isEmpty(l)) {
+void splitOnX(List l, ElType x, List *l1, List *l2)
+{
+    if (isEmpty(l))
+    {
         // BASIS
         *l1 = NULL;
         *l2 = NULL;
-    } else {
+    }
+    else
+    {
         // REKURENS
         splitOnX(tail(l), x, l1, l2);
-        if (head(l) < x) {
+        if (head(l) < x)
+        {
             *l1 = konso(*l1, head(l));
-        } else {
+        }
+        else
+        {
             *l2 = konso(*l2, head(l));
         }
-        
     }
 }
 /* I.S. l dan x terdefinisi, l1 dan l2 sembarang. */
@@ -303,24 +333,34 @@ void splitOnX (List l, ElType x, List *l1, List *l2) {
 kemunculan yang sama, l2 berisi semua elemen l yang tidak masuk ke
 l1, dengan urutan kemunculan yang sama. */
 
-int compareList (List l1, List l2) {
-    if (length(l1) == length(l2)) {
-        if (head(l1) == head(l2)) {
-            if (isOneElmt(l1) && isOneElmt(l2)) {
+int compareList(List l1, List l2)
+{
+    if (length(l1) == length(l2))
+    {
+        if (head(l1) == head(l2))
+        {
+            if (isOneElmt(l1) && isOneElmt(l2))
+            {
                 return 0;
             }
             int a = compareList(tail(l1), tail(l2));
             return a;
-
-        } else if (head(l1) < head(l2)) {
+        }
+        else if (head(l1) < head(l2))
+        {
             return -1;
-        } else {
+        }
+        else
+        {
             return 1;
         }
-
-    } else if (length(l1) < length (l2)) {
+    }
+    else if (length(l1) < length(l2))
+    {
         return -1;
-    } else {
+    }
+    else
+    {
         return 1;
     }
 }
@@ -333,12 +373,22 @@ urutan i yang sama, l1[i]=l2[i], namun |l1|<|l2| */
 /* Contoh: [3,5,6,7] < [4,4,5,6]; [1,2,3]<[1,2,3,4] */
 /* l1>l2: kebalikan dari l1<l2 */
 
-boolean isAllExist (List l1, List l2) {
-    if (isEmpty(l1)) {
+boolean isAllExist(List l1, List l2)
+{
+    if (isEmpty(l1))
+    {
         return false;
-    } else if (isOneElmt(l1)) {
+    }
+    else if (isEmpty(l2))
+    {
+        return false;
+    }
+    else if (isOneElmt(l1))
+    {
         return isMember(l2, head(l1));
-    } else {
+    }
+    else
+    {
         return isMember(l2, head(l1)) && isAllExist(tail(l1), l2);
     }
 }

@@ -2,102 +2,6 @@
 #include "listrec.h"
 #include <stdlib.h>
 
-List CreateList(List l, int panjangbaris)
-{
-    if (panjangbaris == 0)
-    {
-        return NULL;
-    }
-    else
-    {
-        int element;
-        panjangbaris--;
-        scanf("%d", &element);
-        // printf("%d\n", element);
-        return konso(CreateList(l, panjangbaris), element);
-    }
-}
-
-void splitOnIdx(List l, int idx, List *l1, List *l2)
-{
-    if (isEmpty(l))
-    {
-        // BASIS
-        *l1 = NULL;
-        *l2 = NULL;
-    }
-    else if (idx == 0)
-    {
-        *l1 = NULL;
-        *l2 = copy(l);
-    }
-    else
-    {
-        // REKURENS
-        idx--;
-        splitOnIdx(tail(l), idx, l1, l2);
-        *l1 = konso(*l1, head(l));
-    }
-}
-
-List reversePartisi(List l, int jumlahpartisi, int panjangpartisi)
-{
-    if (isEmpty(l))
-    {
-        return l;
-    }
-    else if (jumlahpartisi == 1)
-    {
-        return inverseList(l);
-    }
-    else
-    {
-        if (panjangpartisi > length(l))
-        {
-            return inverseList(l);
-        }
-        else
-        {
-            jumlahpartisi--;
-            List l1, l2;
-            splitOnIdx(l, panjangpartisi, &l1, &l2);
-            l1 = inverseList(l1);
-            // printf("l1:\n");
-            // displayList(l1);
-            return concat(l1, reversePartisi(l2, jumlahpartisi, panjangpartisi));
-        }
-    }
-}
-
-int main()
-{
-    int panjangbaris, panjangpartisi;
-    scanf("%d %d", &panjangbaris, &panjangpartisi);
-
-    List l;
-    l = CreateList(l, panjangbaris);
-    // displayList(l);
-    // printf("inverse:\n");
-    // l = inverseList(l);
-    // displayList(l);
-    // List l1, l2;
-    // splitOnX(l, 3, &l1, &l2);
-    // printf("list 1: \n");
-    // displayList(l1);
-    // printf("list 2:\n");
-    // displayList(l2);
-    int jumlahpartisi = panjangbaris / panjangpartisi;
-    if (panjangbaris % panjangpartisi != 0)
-    {
-        jumlahpartisi++;
-    }
-    // printf("jml : %d\n", jumlahpartisi);
-    List hasil = reversePartisi(l, jumlahpartisi, panjangpartisi);
-
-    // printf("hasil:\n");
-    displayList(hasil);
-}
-
 /*** Pencarian nilai ekstrim ***/
 /* Prekondisi untuk Max/Min/Sum/Average : List tidak kosong */
 ElType maxList(List l)
@@ -305,18 +209,127 @@ boolean isAllExist(List l1, List l2)
 memperhatikan urutan ataupun banyaknya elemen).
 Kedua list mungkin kosong. Jika l1 kosong, maka hasilnya false. */
 
-/* Manajemen Memori */
-Address newNode(ElType x)
+List CreateList(List l, int panjangbaris)
 {
-    Address p = (Address)malloc(sizeof(Node));
-    if (p != NULL)
+    if (panjangbaris == 0)
     {
-        INFO(p) = x;
-        NEXT(p) = NULL;
+        return NULL;
     }
-    return p;
+    else
+    {
+        int element;
+        panjangbaris--;
+        scanf("%d", &element);
+        // printf("%d\n", element);
+        return konso(CreateList(l, panjangbaris), element);
+    }
 }
-/* Mengirimkan address hasil alokasi sebuah elemen */
-/* Jika alokasi berhasil, maka address tidak NIL, dan misalnya
-   menghasilkan p, maka INFO(p)=x, NEXT(p)=NIL */
-/* Jika alokasi gagal, mengirimkan NIL */
+
+void splitOnIdx(List l, int idx, List *l1, List *l2)
+{
+    if (isEmpty(l))
+    {
+        // BASIS
+        *l1 = NULL;
+        *l2 = NULL;
+    }
+    else if (idx == 0)
+    {
+        *l1 = NULL;
+        *l2 = copy(l);
+    }
+    else
+    {
+        // REKURENS
+        idx--;
+        splitOnIdx(tail(l), idx, l1, l2);
+        *l1 = konso(*l1, head(l));
+    }
+}
+
+List reversePartisi(List l, int jumlahpartisi, int panjangpartisi)
+{
+    if (isEmpty(l))
+    {
+        return l;
+    }
+    else if (jumlahpartisi == 1)
+    {
+        return inverseList(l);
+    }
+    else
+    {
+        if (panjangpartisi > length(l))
+        {
+            return inverseList(l);
+        }
+        else
+        {
+            jumlahpartisi--;
+            List l1, l2;
+            splitOnIdx(l, panjangpartisi, &l1, &l2);
+            l1 = inverseList(l1);
+            // printf("l1:\n");
+            // displayList(l1);
+            return concat(l1, reversePartisi(l2, jumlahpartisi, panjangpartisi));
+        }
+    }
+}
+
+void newdisplayList(List l)
+{
+    if (isEmpty(l))
+    {
+    }
+    else if (isOneElmt(l))
+    {
+        printf("%d\n", head(l));
+    }
+    else
+    {
+
+        printf("%d ", head(l));
+        newdisplayList(tail(l));
+    }
+}
+/* I.S. List l mungkin kosong */
+/* F.S. Jika list tidak kosong, nilai list dicetak ke bawah */
+/*      Dipisahkan dengan newline (\n) dan diakhiri dengan newline */
+/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak:
+  1
+  20
+  30
+ */
+/* Jika list kosong, tidak menuliskan apa-apa  */
+
+int main()
+{
+    int panjangbaris, panjangpartisi;
+    scanf("%d %d", &panjangbaris, &panjangpartisi);
+
+    List l;
+    l = CreateList(l, panjangbaris);
+    // displayList(l);
+    // printf("inverse:\n");
+    // l = inverseList(l);
+    // displayList(l);
+    // List l1, l2;
+    // splitOnX(l, 3, &l1, &l2);
+    // printf("list 1: \n");
+    // displayList(l1);
+    // printf("list 2:\n");
+    // displayList(l2);
+    if (panjangpartisi != 0)
+    {
+        int jumlahpartisi = panjangbaris / panjangpartisi;
+        if (panjangbaris % panjangpartisi != 0)
+        {
+            jumlahpartisi++;
+        }
+        // printf("jml : %d\n", jumlahpartisi);
+        List hasil = reversePartisi(l, jumlahpartisi, panjangpartisi);
+
+        // printf("hasil:\n");
+        newdisplayList(hasil);
+    }
+}

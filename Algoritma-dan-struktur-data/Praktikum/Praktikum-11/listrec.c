@@ -43,7 +43,7 @@ boolean isEmpty(List l)
 
 boolean isOneElmt(List l)
 {
-    return (!isEmpty(l) && NEXT(l) == NULL);
+    return !isEmpty(l) && NEXT(l) == NULL;
 }
 /* Mengirimkan true jika l berisi 1 elemen dan false jika > 1 elemen atau kosong */
 
