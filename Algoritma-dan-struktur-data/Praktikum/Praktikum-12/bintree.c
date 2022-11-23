@@ -34,10 +34,9 @@ BinTree NewTree(ElType root, BinTree left_tree, BinTree right_tree)
     // KAMUS LOKAL
 
     // ALGORITMA
-    BinTree p = (BinTree)malloc((sizeof(TreeNode)));
+    BinTree p = newTreeNode(root);
     if (p != NULL)
     {
-        ROOT(p) = root;
         LEFT(p) = left_tree;
         RIGHT(p) = right_tree;
     }
@@ -52,11 +51,10 @@ BinTree NewTree(ElType root, BinTree left_tree, BinTree right_tree)
 void CreateTree(ElType root, BinTree left_tree, BinTree right_tree, BinTree *p)
 {
     // KAMUS LOKAL
-    BinTree temp = (BinTree)malloc(sizeof(TreeNode));
+    BinTree temp = newTreeNode(root);
     // ALGORITMA
     if (temp != NULL)
     {
-        ROOT(temp) = root;
         LEFT(temp) = left_tree;
         RIGHT(temp) = right_tree;
     }
@@ -71,11 +69,13 @@ void CreateTree(ElType root, BinTree left_tree, BinTree right_tree, BinTree *p)
 Address newTreeNode(ElType val)
 {
     // KAMUS LOKAL
-    Address p = (BinTree)malloc(sizeof(TreeNode));
+    Address p = (Address)malloc(sizeof(TreeNode));
     // ALGORITMA
     if (p != NULL)
     {
         ROOT(p) = val;
+        LEFT(p) = NULL;
+        RIGHT(p) = NULL;
     }
     return p;
 }
@@ -91,34 +91,34 @@ void deallocTreeNode(Address p)
 /* Mengirimkan true jika p adalah pohon biner yang kosong */
 boolean isTreeEmpty(BinTree p)
 {
-    return ROOT(p) == NULL;
+    return p == NULL;
 }
 
 /* Mengirimkan true jika p tidak kosong dan hanya terdiri atas 1 elemen */
 boolean isOneElmt(BinTree p)
 {
-    return ROOT(p) != NULL && LEFT(p) == NULL && RIGHT(p) == NULL;
+    return !isTreeEmpty(p) && LEFT(p) == NULL && RIGHT(p) == NULL;
 }
 
 /* Mengirimkan true jika pohon biner tidak kosong, p adalah pohon unerleft:
    hanya mempunyai subpohon kiri */
 boolean isUnerLeft(BinTree p)
 {
-    return RIGHT(p) == NULL && LEFT(p) != NULL;
+    return !isTreeEmpty(p) && RIGHT(p) == NULL && LEFT(p) != NULL;
 }
 
 /* Mengirimkan true jika pohon biner tidak kosong, p adalah pohon unerright:
    hanya mempunyai subpohon kanan */
 boolean isUnerRight(BinTree p)
 {
-    return RIGHT(p) != NULL && LEFT(p) == NULL;
+    return !isTreeEmpty(p) && RIGHT(p) != NULL && LEFT(p) == NULL;
 }
 
 /* Mengirimkan true jika pohon biner tidak kosong, p adalah pohon biner:
   mempunyai subpohon kiri dan subpohon kanan */
 boolean isBinary(BinTree p)
 {
-    return RIGHT(p) != NULL && LEFT(p) != NULL;
+    return !isTreeEmpty(p) && RIGHT(p) != NULL && LEFT(p) != NULL;
 }
 
 /* ****** Display Tree ***** */
@@ -162,9 +162,9 @@ void printInorder(BinTree p)
     printf("(");
     if (!isTreeEmpty(p))
     {
-        printPreorder(LEFT(p));
+        printInorder(LEFT(p));
         printf("%d", ROOT(p));
-        printPreorder(RIGHT(p));
+        printInorder(RIGHT(p));
     }
 
     printf(")");
@@ -186,8 +186,8 @@ void printPostorder(BinTree p)
     printf("(");
     if (!isTreeEmpty(p))
     {
-        printPreorder(LEFT(p));
-        printPreorder(RIGHT(p));
+        printPostorder(LEFT(p));
+        printPostorder(RIGHT(p));
         printf("%d", ROOT(p));
     }
 

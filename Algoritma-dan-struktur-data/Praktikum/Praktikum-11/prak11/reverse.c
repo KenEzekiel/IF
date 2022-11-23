@@ -259,7 +259,7 @@ List reversePartisi(List l, int jumlahpartisi, int panjangpartisi)
     }
     else
     {
-        if (panjangpartisi > length(l))
+        if (panjangpartisi >= length(l))
         {
             return inverseList(l);
         }
@@ -302,12 +302,59 @@ void newdisplayList(List l)
  */
 /* Jika list kosong, tidak menuliskan apa-apa  */
 
+void newdisplayList1(List l)
+{
+    if (isOneElmt(l))
+    {
+        printf("%d", head(l));
+    }
+    else
+    {
+        printf("%d ", head(l));
+        newdisplayList1(tail(l));
+    }
+}
+
+void fungsiMagic(List l, List l1, int K, int count)
+{
+    if (isEmpty(l))
+    {
+        newdisplayList1(l1);
+        printf("\n");
+    }
+    else if (isOneElmt(l) && count == K)
+    {
+        printf("%d ", head(l));
+        newdisplayList1(l1);
+        printf("\n");
+    }
+    else
+    {
+        if (count < K)
+        {
+            l1 = konso(l1, head(l));
+            count++;
+            fungsiMagic(tail(l), l1, K, count);
+        }
+        else
+        {
+            l1 = konso(l1, head(l));
+            newdisplayList1(l1);
+            printf(" ");
+            l1 = NIL;
+            count = 1;
+            fungsiMagic(tail(l), l1, K, count);
+        }
+    }
+}
+
 int main()
 {
     int panjangbaris, panjangpartisi;
     scanf("%d %d", &panjangbaris, &panjangpartisi);
 
-    List l;
+    List l, l1;
+    l1 = NULL;
     l = CreateList(l, panjangbaris);
     // displayList(l);
     // printf("inverse:\n");
@@ -319,7 +366,15 @@ int main()
     // displayList(l1);
     // printf("list 2:\n");
     // displayList(l2);
-    if (panjangpartisi != 0)
+    if (panjangbaris == 1)
+    {
+        printf("%d\n", head(l));
+    }
+    else if (panjangpartisi <= 1)
+    {
+        newdisplayList(l);
+    }
+    else if (panjangpartisi != 0)
     {
         int jumlahpartisi = panjangbaris / panjangpartisi;
         if (panjangbaris % panjangpartisi != 0)
@@ -327,28 +382,10 @@ int main()
             jumlahpartisi++;
         }
         // printf("jml : %d\n", jumlahpartisi);
-        List hasil = reversePartisi(l, jumlahpartisi, panjangpartisi);
+        // List hasil = reversePartisi(l, jumlahpartisi, panjangpartisi);
 
         // printf("hasil:\n");
-        newdisplayList(hasil);
-        List a;
-        displayList(a);
-        a = konso(a, 1);
-        displayList(a);
-        printf("\na\n");
-        a = konsb(a, 2);
-        displayList(a);
-        printf("\nb\n");
-        int max = maxList(a);
-        printf("3");
-        int min = minList(a);
-        printf("4");
-        int sum = sumList(a);
-        printf("5");
-        float avg = averageList(a);
-        printf("6");
-        List inv = inverseList(a);
-        printf("max %d min %d sum %d avg %f\n", max, min, sum, avg);
-        displayList(inv);
+        // newdisplayList(hasil);
+        fungsiMagic(l, l1, panjangpartisi, 1);
     }
 }

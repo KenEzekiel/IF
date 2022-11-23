@@ -230,7 +230,7 @@ ElType minList(List l)
     }
     else
     {
-        int var = maxList(tail(l));
+        int var = minList(tail(l));
         if (head(l) < var)
         {
             return head(l);
@@ -245,6 +245,7 @@ ElType minList(List l)
 
 ElType sumList(List l)
 {
+
     if (isOneElmt(l))
     {
         return head(l);
@@ -258,7 +259,7 @@ ElType sumList(List l)
 
 float averageList(List l)
 {
-    return sumList(l) / length(l);
+    return (float)sumList(l) / (float)length(l);
 }
 /* Mengirimkan nilai rata-rata elemen list l */
 
@@ -289,12 +290,7 @@ void splitPosNeg(List l, List *l1, List *l2)
     else
     {
         // REKURENS
-        // if (head(l) >= 0) {
-        //     *l1 = konsb(*l1, head(l));
-        // } else {
-        //     *l2 = konsb(*l2, head(l));
-        // }
-        // splitPosNeg(tail(l), l1, l2);
+
         splitPosNeg(tail(l), l1, l2);
         if (head(l) >= 0)
         {
