@@ -69,8 +69,15 @@ List konso(List l, ElType e)
     }
     else
     {
-        NEXT(p) = l;
-        return p;
+        if (isEmpty(l))
+        {
+            return p;
+        }
+        else
+        {
+            NEXT(p) = l;
+            return p;
+        }
     }
 }
 /* Mengirimkan list l dengan tambahan e sebagai elemen pertamanya. e dialokasi terlebih dahulu.

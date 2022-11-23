@@ -331,5 +331,24 @@ int main()
 
         // printf("hasil:\n");
         newdisplayList(hasil);
+        List a;
+        displayList(a);
+        a = konso(a, 1);
+        displayList(a);
+        printf("\na\n");
+        a = konsb(a, 2);
+        displayList(a);
+        printf("\nb\n");
+        int max = maxList(a);
+        printf("3");
+        int min = minList(a);
+        printf("4");
+        int sum = sumList(a);
+        printf("5");
+        float avg = averageList(a);
+        printf("6");
+        List inv = inverseList(a);
+        printf("max %d min %d sum %d avg %f\n", max, min, sum, avg);
+        displayList(inv);
     }
 }
