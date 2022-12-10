@@ -1,0 +1,302 @@
+Nomor 1: List Rekursif
+
+Implementasikan fungsi isKelipatanX, fungsi sortedMerge, prosedur deleteAlternate
+
+function isKelipatanX (L: List, x: integer) -> Boolean
+    {KAMUS LOKAL}
+
+    {ALGORITMA}
+    if (isOneElmt(L)) then
+        if (Head(L) mod x = 0) then
+            -> true
+        else
+            -> false
+    else
+        if (Head(L) mod 2 = 0) then
+            -> isKelipatanX(Tail(L), x)
+        else
+            -> false
+
+function sortedMerge (L1, L2: List) -> List
+    {KAMUS LOKAL}
+    p : List
+
+    {ALGORITMA}
+    if (isEmpty(L1)) then
+        -> copyList(L2)
+    if (isEmpty(L2)) then
+        -> copyList(L1)
+    if (Head(L1) > Head(L2)) then
+        p <- newNode(Head(L1))
+        Tail(p) <- sortedMerge(Tail(L1), L2)
+    else
+        if (Head(L1) = Head(L2)) then
+            p <- newNode(Head(L1))
+            Tail(p) <- sortedMerge(Tail(L1), Tail(L2))
+        else
+            p <- newNode(Head(L2))
+            Tail(p) <- sortedMerge(L1, Tail(L2))
+    -> p
+
+procedure deleteAlternate (input/output L: List, input isOdd: Boolean)
+    {KAMUS LOKAL}
+    p : List
+
+    {ALGORITMA}
+    if (isOneElmt(L)) then
+        if (isOdd = true) then
+            p <- L
+            L <- Nil
+            dealokasi(p)
+    else
+        if (isOdd = true) then
+            p <- L
+            L <- deleteAlternate(Tail(L), false)
+            dealokasi(p)
+        else
+            p <- deleteAlternate(Tail(L), true)
+            Tail(L) <- p
+
+Nomor 2: Binary Search Tree
+
+Implementasikan fungsi sumAllWeight, fungsi maxOccurence
+
+function sumAllWeight (P: BinTree) -> integer
+    {KAMUS LOKAL}
+
+    {ALGORITMA}
+    if (isTreeEmpty(P)) then
+        -> 0
+    else
+        -> Weight(P) * Count(P) + sumAllWeight(Left(P)) + sumAllWeight(Right(P))
+
+function maxOccurence (P: BinTree) -> BinTree
+    {KAMUS LOKAL}
+
+    {ALGORITMA}
+    if (isTreeOneElmt(P))
+        -> p
+    else
+        depend on P
+            isUnerRight(P): rest <- maxOccurence(Right(P))
+            isUnerLeft(P): rest <- maxOccurence(Left(P))
+            isBiner(P):
+                left <- maxOccurence(Left(P))
+                right <- maxOccurence(Right(P))
+                if Count(left) = Count(Right) then
+                    if Weight(left) > Weight(right) then
+                        rest <- left
+                    else
+                        rest <- right
+                else
+                    if Count(left) > Count(right) then
+                        rest <- left
+                    else
+                        rest <- right
+            if Count(rest) = Count(P) then
+                if Weight(rest) > Weight(P) then
+                    -> rest
+                else
+                    -> P
+            else
+                if Count(rest) > Count(P) then
+                    -> rest
+                else
+                    -> P
+
+Nomor 3: Graf Pertemanan
+
+procedure tambahTeman(input/output G: Graph, input siA, siB: string)
+    {KAMUS LOKAL}
+    adrsiA, adrsiB : Orang
+    temanA, temanB : Teman
+    {ALGORITMA}
+    if (cariOrang(G, siA) = Nil) then
+        tambahOrang(G, siA, adrsiA)
+    else
+        adrsiA <- cariOrang(G, SiA)
+    if (cariOrang(G, siB) = Nil) then
+        tambahOrang(G, siB, adrsiB)
+    else
+        adrsiB <- cariOrang(G, SiB)
+    if (adrsiA != Nil and adrsiB != Nil) then
+        temanA <- newTeman(siB)
+        if temanA != Nil then
+            temanB <- newTeman(siA)
+            if temanB != Nil then
+                { insertFirst temanA ke list temanA dan sama untuk B }
+                Next(temanA) <- Teman(adrsiA)
+                Teman(adrsiA) <- temanA
+                Next(temanB) <- Teman(adrsiB)
+                Teman(adrsiB) <- temanB
+            else
+                dealokTeman(temanB)
+        else
+            dealokasi(temanA)
+
+        
+function apakahBerteman(G: Graph, siX: string) -> Boolean
+    {KAMUS LOKAL}
+
+    {ALGORITMA}
+    siPalingGaul <- palingGaul(G)
+    if (siPalingGaul = "-")
+        -> false
+    else
+        adrsiX <- cariOrang(G, siX)
+        if (adrsiX = Nil) then
+            -> false
+        else
+            p <- Teman(adrsiX)
+            found <- false
+            while (not found and p != Nil) do
+                if (p.nama = siPalingGaul) then
+                    found <- true
+                else
+                    p <- p.next
+            -> found
+
+Nomor 4: Studi Kasus Relasi M-N
+
+function portofolio (FirstMgr: ListMgr, FirstFC: ListFC, FirstContract: ListContract, Mgr: string) -> real
+    {KAMUS LOKAL}
+    countjob, countfc : integer
+    p : AdrCt
+    q : AdrFC
+
+    {ALGORITMA}
+    {Traversal List contract untuk menghitung semua FC yang pernah ditangani seorang manager}
+    countjob <- 0
+    p <- FirstContract
+    while (p != Nil) do
+        if (p->PMgr->Nama = Mgr) then
+            countjob <- countjob + 1
+        p <- p->NextContract
+    countfc <- 0
+    q <- FirstFC
+    while (q != Nil) do
+        countfc <- countfc + 1
+        q <- q->NextFC
+    -> p / q
+
+
+function isAlumni (FirstMgr: ListMgr, FirstFC: ListFC, FirstContract: ListContract, M1: string, M2: string) -> Boolean
+    {KAMUS LOKAL}
+    p,q : AdrCt
+    found : Boolean
+
+    {ALGORITMA}
+    p <- FirstContract
+    found <- false
+    
+    while (p != Nil and not found) do
+        q <- FirstContract
+        if (p->PMgr->Nama = M1) then
+            while (q != Nil and not found) do
+                if (q->PMgr->Nama = M2) then
+                    if (p->PFC->NamaFC = q->PFC->NamaFC) then
+                        found <- true
+                q <- q->NextContract
+        q <- FirstContract
+        if (p->PMgr->Nama = M2) then
+            while (q != Nil and not found) do
+                if (q->PMgr->Nama = M1) then
+                    if (p->PFC->NamaFC = q->PFC->NamaFC) then
+                        found <- true
+                q <- q->NextContract
+    -> found
+
+    p <- FirstContract
+    found <- false
+    
+    while (p != Nil and not found) do
+        q <- FirstContract
+        if (p->PMgr->Nama = M1) then
+            while (q != Nil and not found) do
+                found <- q->PMgr->Nama = M2 and p->PFC->NamaFC = q->PFC->NamaFC
+                q <- q->NextContract
+        q <- FirstContract
+        if (p->PMgr->Nama = M2) then
+            while (q != Nil and not found) do
+                found <- q->PMgr->Nama = M1 and p->PFC->NamaFC = q->PFC->NamaFC
+                q <- q->NextContract
+    -> found
+                 
+
+Tahun 2019
+
+Studi Kasus Topological Sort
+
+function SearchNode (G: Graph, X: integer) -> adrNode
+    {KAMUS LOKAL}
+    p : Graph
+    found : boolean
+
+    {ALGORITMA}
+    p <- G
+    found <- false
+    while (p != Nil and not found) do
+        if (Id(p) = X) then
+            found <- true
+        else
+            p <- Next(p)
+    if found then
+        -> p
+    else
+        -> Nil
+
+function HasAdjacent (G: Graph, P: adrNode) -> adrAdjNode
+    {KAMUS LOKAL}
+
+    {ALGORITMA}
+    -> LAdj(p)
+
+    {Asumsi X}
+    p <- SearchNode(G, X)
+    -> LAdj(p)
+
+procedure TopoSort(input/output G: Graph)
+    {KAMUS LOKAL}
+
+    {ALGORITMA}
+    countprinted <- 0
+    newG <- Nil
+    nodecnt <- CountNode(G)
+    sorted <- false
+    p <- G
+    while not sorted do
+        if (p = Nil) then
+            p <- G
+
+        
+        if (Printed(p) = false and InDegree(p) = 0) then
+            { kurangi semua adjacent node dia in degree nya }
+            q <- LAdj(p)
+            while q != Nil do
+                r <- G
+                found1 <- false
+                while r != Nil and not found1 do
+                    if (Id(r) = Id(q)) then
+                        InDegree(r) <- InDegree(r) - 1
+                        found1 <- true
+                        s <- r
+                    else
+                        r <- Next(r)
+                q <- Next(q)
+            Printed(p) <- true
+            countprinted <- countprinted + 1
+            output(Id(p))
+            if (newG = Nil) then
+                CreateGraph(Id(p), newG)
+            else 
+                insertNode(newG, Id(p), Pn)
+            if (InDegree(s) = 0) then
+                Printed(s) <- true
+                countprinted <- countprinted + 1
+                output(Id(s))
+                insertNode(newG, Id(s), Pn)
+        if (countprinted = nodecnt) then
+            sorted <- true
+    a <- G
+    G <- newG
+    dealokasi(a)
