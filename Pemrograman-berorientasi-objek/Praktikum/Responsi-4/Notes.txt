@@ -1,0 +1,2 @@
+this di java reference, makanya this.
+this di cpp pointer, makanya this->
