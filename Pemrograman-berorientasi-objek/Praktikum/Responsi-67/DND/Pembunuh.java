@@ -36,7 +36,7 @@ public class Pembunuh implements Kelas {
     // "[nama karakter], sang pembunuh, menyerang [nama target] dengan [senjata]"
     public void serang(Karakter self, Karakter target) {
         System.out.printf("%s, sang pembunuh, menyerang %s dengan %s%n", self.getName(), target.getName(),
-                this.senjata);
+                this.getSenjata());
         target.terimaSerangan(20);
     }
 
@@ -78,8 +78,9 @@ public class Pembunuh implements Kelas {
     // Jika target masih hidup, tidak melakukan apa-apa, dan menampilkan pesan
     // "[nama target] belum mati, tidak bisa disalin wujudnya"
     public void gunakanUltimate(Karakter self, Karakter target) {
-        System.out.printf("%s menyalin wujud %s%n", self.getName(), target.getName());
+
         if (!target.isHidup()) {
+            System.out.printf("%s menyalin wujud %s%n", self.getName(), target.getName());
             self.addHealth(40);
             self.addMana(20);
             System.out.printf("%s berhasil disalin wujudnya%n", target.getName());
