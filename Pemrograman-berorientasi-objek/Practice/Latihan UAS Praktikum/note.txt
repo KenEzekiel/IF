@@ -1,0 +1,10 @@
+Materi:
+
+Java Basic (Constructor, Overriding, Overloading, Method, Field, Inheritance, Interface)
+Reflection
+Exception
+Wildcard
+Generic
+Java Collection API
+Design Pattern
+SOLID
